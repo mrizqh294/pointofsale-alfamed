@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('nama');
-            $table->unsignedBigInteger('id_role');
+            $table->enum('role', ['Admin', 'Pegawai', 'Manajer']);
             $table->timestamps();
-
-            $table->foreign('id_role')->references('id_role')->on('tb_role');
         });
     }
 

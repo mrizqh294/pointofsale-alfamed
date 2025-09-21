@@ -5,10 +5,18 @@
         <div class="" x-data="{ isOpenAdd: false, isOpenDestroy: false, isOpenUpdate: false, id: null, currentCategory: {} }" x-cloak>
 
           @if (session('status'))
-              <div class="alert alert-success" role="alert">
-                  {{ session('status') }}
+              <div x-data="{isOpenAlert: true}">
+                <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenAlert">
+                  <div class="p-8 bg-white w-1/3 rounded-xl text-center">
+                    <h1 class="font-bold mb-4 text-lg">
+                      {{ session('status') }}
+                    </h1>
+                    <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
+                  </div>
+                </div>
               </div>
           @endif
+
             <div class="flex justify-between py-3">
               <div>
                 <form action="{{ route('kategori.findCategory') }}" method="get">
@@ -82,7 +90,7 @@
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
               <table class="min-w-full table-fixed border ">
-                <thead>
+                <thead class="text-left">
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Kode</th>
                     <th class="py-2 px-4 border border-gray-400 w-4/7">Nama</th>
@@ -94,7 +102,7 @@
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border  border-gray-400">{{ $kategori->kode }}</td>
                     <td class="py-2 px-4 border  border-gray-400">{{ $kategori->nama }}</td>
-                    <td class="py-2 px-4 border  border-gray-400 text-center">
+                    <td class="py-2 px-4 border  border-gray-400">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click="isOpenUpdate = !isOpenUpdate; currentCategory = {{ $kategori->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
                       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $kategori->id_kategori }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
@@ -123,13 +131,13 @@
                         let items = data.data;
                         if(data.data.length > 0) {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead><tr class="bg-gray-200 border-b border-gray-400 c"><th class="py-2 px-4 border border-gray-400 w-2/7">Kode</th><th class="py-2 px-4 border border-gray-400 w-4/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody>'
+                          html += '<thead class="text-left"><tr class="bg-gray-200 border-b border-gray-400 c"><th class="py-2 px-4 border border-gray-400 w-2/7">Kode</th><th class="py-2 px-4 border border-gray-400 w-4/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody>'
                           data.data.forEach(function(item){
 
                             html += `<tr class="hover:bg-gray-50 border border-gray-400">
                                       <td class="py-2 px-4 border border-gray-400">${item.kode}</td>
                                       <td class="py-2 px-4 border border-gray-400">${item.nama}</td>
-                                      <td class="py-2 px-4 border border-gray-400 text-center">
+                                      <td class="py-2 px-4 border border-gray-400">
                                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; currentCategory= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
                                       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_kategori}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
@@ -138,7 +146,7 @@
                           html += `</tbody></table>`
                         } else {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead><tr class="bg-gray-200 border-b border-gray-400"><th class="py-2 px-4 w-2/7 border border-gray-400">Kode</th> <th class="py-2 px-4 w-4/7 border border-gray-400">Nama</th><th class="py-2 px-4 w-1/7 border border-gray-400">Aksi</th></tr></thead>'
+                          html += '<thead class="text-left"><tr class="bg-gray-200 border-b border-gray-400"><th class="py-2 px-4 w-2/7 border border-gray-400">Kode</th> <th class="py-2 px-4 w-4/7 border border-gray-400">Nama</th><th class="py-2 px-4 w-1/7 border border-gray-400">Aksi</th></tr></thead>'
                           html += '<tbody><tr><td colspan="3" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
                         }
                         $('#main-table').addClass('hidden');

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('tb_obat', function (Blueprint $table) {
             $table->bigIncrements('id_obat');
             $table->string('nama');
-            $table->decimal('harga_jual');
-            $table->decimal('harga_beli_terakhir');
-            $table->integer('stok');
             $table->unsignedBigInteger('id_kategori');
+            $table->decimal('harga_jual');
+            $table->decimal('harga_beli');
+            $table->integer('stok')->nullable();
             $table->timestamps();
 
             $table->foreign('id_kategori')->references('id_kategori')->on('tb_kategori_obat');

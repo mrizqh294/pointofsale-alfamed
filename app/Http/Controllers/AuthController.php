@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class AuthController extends Controller
+{
+    public function login(Request $request)
+    {
+        
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+            'role' => ['required']
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+
+            $request->session()->regenerate();
+            
+            session([
+                'nama' => Auth::user()->nama,
+            ]);
+
+            if($credentials['role'] == 'Admin'){
+                return redirect()->intended('/admin');
+            }
+
+            if($credentials['role'] == 'Pegawai'){
+                return redirect()->intended('/pegawai');
+            }
+
+            if($credentials['role'] == 'Manajer'){
+                return redirect()->intended('/manajer');
+            }
+  
+        }
+ 
+        return back()->with('status', 'Login Gagal');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect('/login');
+    }
+}
