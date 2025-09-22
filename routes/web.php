@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Auth\Events\Login;
@@ -82,4 +83,12 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::post('/admin/obat',[ObatController::class, 'addMedicine'])->name('obat.addMedicine');
     Route::delete('/admin/obat/{id}',[ObatController::class, 'destroyMedicine'])->name('obat.destroyMedicine');
     Route::put('/admin/obat/{id}',[ObatController::class, 'updateMedicine'])->name('obat.updateMedicine');
+
+    Route::get('/admin/pembelian',[PembelianController::class, 'getPurchase'])->name('pembelian.getPurchase');
+    Route::get('/admin/pembelian/cari', [PembelianController::class, 'findPurchase'])->name('pembelian.findPurchase');
+    Route::get('/admin/pembelian/tambah',[PembelianController::class, 'getAddPurchase'])->name('pembelian.getAddPurchase');
+    Route::post('/admin/pembelian/',[PembelianController::class, 'addPurchase'])->name('pembelian.addPurchase');
+    Route::delete('/admin/pembelian/{id}',[PembelianController::class, 'destroyPurchase'])->name('pembelian.destroyPurchase');
+
+
 });

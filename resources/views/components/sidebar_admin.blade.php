@@ -1,5 +1,5 @@
-<aside class="flex flex-col items-stretch h-full w-64  bg-green-500 text-white">
-    <div class="flex items-center px-6">
+<aside class="flex flex-col items-stretch h-screen w-64 bg-green-500 text-white">
+    <div class="flex items-center px-7">
       <img src="/images/alfamed-logo.png" alt="Logo" class="w-10 h-10 rounded-full" />
       <span class="p-6 text-xl font-bold">Apotek Alfamed</span>
     </div>
@@ -11,6 +11,7 @@
           <a href="/admin/kategori" class="block py-2.5 px-6 hover:bg-green-400"><i class="fa-solid fa-table-cells-large p-2"></i>Kategori</a>
           <a href="/admin/obat" class="block py-2.5 px-6 hover:bg-green-400"><i class="fa-solid fa-tablets p-2"></i>Obat</a>
           <a href="/admin/supplier" class="block py-2.5 px-6 hover:bg-green-400"><i class="fa-solid fa-store p-2"></i>Suplier</a>
+          <a href="/admin/pembelian" class="block py-2.5 px-6 hover:bg-green-400"><i class="fa-solid fa-chart-column p-2"></i></i>Penjualan</a>
           <a href="/admin/pembelian" class="block py-2.5 px-6 hover:bg-green-400"><i class="fa-solid fa-basket-shopping p-2"></i>Pembelian</a>
           <button type="button" type="button" @click="laporanIsOpen = !laporanIsOpen" class="py-2.5 px-6 text-justify w-full cursor-pointer hover:bg-green-400"><i class="fa-solid fa-book p-2"></i>Laporan<i class="fa fa-caret-down pl-8"></i></button>
           <div 
