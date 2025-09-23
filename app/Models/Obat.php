@@ -18,4 +18,13 @@ class Obat extends Model
         'stok'
     ];
 
+    public function getHargaJualFormattedAttribute()
+    {
+        return 'Rp ' . number_format($this->harga_jual, 2, ',', '.');
+    }
+
+    public function getHargaBeliFormattedAttribute()
+    {
+        return 'Rp ' . number_format($this->harga_beli, 2, ',', '.');
+    }
 }

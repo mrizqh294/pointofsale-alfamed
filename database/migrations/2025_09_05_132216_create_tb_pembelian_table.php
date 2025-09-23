@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_pembelian');
             $table->unsignedBigInteger('id_pengguna');
             $table->unsignedBigInteger('id_supplier');
-            $table->decimal('total_pembelian');
-            $table->dateTime('tgl_pembelian', precision:0);
+            $table->decimal('total_pembelian', 15, 2);
+            $table->date('tgl_pembelian');
             $table->timestamps();
 
             $table->foreign('id_pengguna')->references('id_pengguna')->on('tb_pengguna');

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penjualan');
             $table->unsignedBigInteger('id_obat');
             $table->integer('jumlah_obat');
-            $table->decimal('sub_total_transaksi');
+            $table->decimal('subtotal_penjualan', 15, 2);
             $table->timestamps();
 
-            $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan');
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan')->onDelete('cascade');;
             $table->foreign('id_obat')->references('id_obat')->on('tb_obat');
         });
     }

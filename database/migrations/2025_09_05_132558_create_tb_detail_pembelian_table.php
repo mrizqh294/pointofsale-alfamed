@@ -18,9 +18,10 @@ return new class extends Migration
             $table->decimal('harga_beli');
             $table->integer('jumlah_obat');
             $table->date('tgl_kadaluarsa');
+            $table->decimal('subtotal_pembelian', 15, 2);
             $table->timestamps();
 
-            $table->foreign('id_pembelian')->references('id_pembelian')->on('tb_pembelian');
+            $table->foreign('id_pembelian')->references('id_pembelian')->on('tb_pembelian')->onDelete('cascade');;
             $table->foreign('id_obat')->references('id_obat')->on('tb_obat');
         });
     }

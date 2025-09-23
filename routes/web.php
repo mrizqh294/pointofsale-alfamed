@@ -85,6 +85,7 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::put('/admin/obat/{id}',[ObatController::class, 'updateMedicine'])->name('obat.updateMedicine');
 
     Route::get('/admin/pembelian',[PembelianController::class, 'getPurchase'])->name('pembelian.getPurchase');
+    Route::get('/admin/pembelian/detail/{id}',[PembelianController::class, 'getPurchaseDetail'])->name('pembelian.getPurchaseDetail');
     Route::get('/admin/pembelian/cari', [PembelianController::class, 'findPurchase'])->name('pembelian.findPurchase');
     Route::get('/admin/pembelian/tambah',[PembelianController::class, 'getAddPurchase'])->name('pembelian.getAddPurchase');
     Route::post('/admin/pembelian/',[PembelianController::class, 'addPurchase'])->name('pembelian.addPurchase');

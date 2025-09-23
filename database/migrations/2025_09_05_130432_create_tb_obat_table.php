@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kategori');
             $table->decimal('harga_jual');
             $table->decimal('harga_beli');
+            $table->string('foto')->nullable();
             $table->integer('stok')->nullable();
             $table->timestamps();
 

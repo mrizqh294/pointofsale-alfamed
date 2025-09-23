@@ -2,10 +2,23 @@
     <x-sidebar_admin></x-sidebar_admin>
     <x-main_content>
         <x-slot:title>{{ $title }}</x-slot>
+        @if (session('status'))
+              <div x-data="{isOpenAlert: true}">
+                <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenAlert">
+                  <div class="p-8 bg-white w-1/3 rounded-xl text-center">
+                    <h1 class="font-bold mb-4 text-lg">
+                      {{ session('status') }}
+                    </h1>
+                    <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
+                  </div>
+                </div>
+              </div>
+        @endif
         <div class="px-5 py-3">
             <div x-data="formPembelian()">
                 <form action="{{ route('pembelian.addPurchase') }}" method="post">
                     @csrf
+                    <input type="text" name="id_pengguna" value="{{ session('id_pengguna') }}" hidden>
                     <div class="mb-6">
                       <label for="id_supplier" class="block font-bold mb-5">Suplier</label>
                       <select id="id_supplier" name="id_supplier" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
@@ -99,8 +112,8 @@
                     </template> --}}
 
                     <div class="flex flex-cols gap-4 py-4 justify-end">
-                        <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()">+ Tambah Obat</button>
-                        <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Simpan</button>
+                        <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()"><i class="fa-solid fa-plus"></i> Tambah</button>
+                        <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
                     </div>
                 </form>
             </div>

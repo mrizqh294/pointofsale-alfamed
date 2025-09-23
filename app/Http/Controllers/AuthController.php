@@ -22,6 +22,7 @@ class AuthController extends Controller
             
             session([
                 'nama' => Auth::user()->nama,
+                'id_pengguna' => Auth::user()->id_pengguna
             ]);
 
             if($credentials['role'] == 'Admin'){

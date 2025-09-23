@@ -14,7 +14,7 @@
 
     <div class="flex items-center justify-center h-screen w-full bg-gray-100">
         <div class="flex w-full max-w-1/2 bg-white shadow-md rounded-lg">
-            <div class= "w-2/5 bg-green-500 flex flex-col justify-center items-center rounded-s-lg">
+            <div class= "w-2/5 bg-teal-600 flex flex-col justify-center items-center rounded-s-lg">
                 <div class="p-6">
                     <img src="/images/alfamed-logo.png" alt="" class="w-60 h-60 rounded-full"> 
                 </div> 
@@ -42,7 +42,7 @@
                             <option value="Manajer">Manajer</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full p-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none">Login</button>
+                    <button type="submit" class="w-full p-3 text-white bg-teal-600 rounded-lg hover:bg-teal-700 focus:outline-none">Login</button>
                 </form>
             </div>   
         </div>

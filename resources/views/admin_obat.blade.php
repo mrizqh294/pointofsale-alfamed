@@ -57,8 +57,8 @@
                       <label for="stok" class="block text-gray-700 font-medium mb-2">Stok Obat</label>
                       <input type="number" min="0" id="stok" name="stok" placeholder="Masukkan Total Stok" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     </div>
-                    <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Simpan</button>
-                    <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAdd = !isOpenAdd">Batal</button>
+                    <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
+                    <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAdd = !isOpenAdd"><i class="fa-solid fa-xmark"></i> Batal</button>
                   </form>
                 </div>
               </div> 
@@ -95,8 +95,8 @@
                     <label for="stok" class="block text-gray-700 font-medium mb-2">Stok Obat</label>
                     <input type="number" min="0" id="stok" name="stok" :value="`${current.stok}`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                   </div>
-                  <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Simpan</button>
-                  <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenUpdate = !isOpenUpdate">Batal</button>
+                  <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
+                  <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenUpdate = !isOpenUpdate"><i class="fa-solid fa-xmark"></i> Batal</button>
                 </form>
               </div>
             </div> 
@@ -109,8 +109,8 @@
                 <form :action="`{{ route('obat.destroyMedicine', ':id') }}`.replace(':id', id)" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Hapus</button>
-                  <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy">Batal</button>
+                  <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy"><i class="fa-solid fa-xmark"></i> Batal</button>
                  </form>
               </div>
             </div>
@@ -136,7 +136,7 @@
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_obat }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_kategori }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $medic->harga_jual }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->stok }}</td>
                     <td class="py-2 px-4 border border-gray-400">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>

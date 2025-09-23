@@ -35,7 +35,7 @@
                 <form :action="`{{ route('pembelian.destroyPurchase', ':id') }}`.replace(':id', id)" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Hapus</button>
+                  <button type="submit" class="btn cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Hapus</button>
                   <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy">Batal</button>
                  </form>
               </div>
@@ -50,21 +50,23 @@
               <table class="min-w-full table-fixed border ">
                 <thead class="text-left">
                   <tr class="bg-gray-200">
-                    <th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Suplier</th>
+                    <th class="py-2 px-4 border border-gray-400 w-2/10">Tanggal</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/6">Pencatat</th>
+                    <th class="py-2 px-4 border border-gray-400 w-2/8">Suplier</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Total Pembelian</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/9">Aksi</th>
                   </tr>
                 </thead>
                 <tbody class="">
                   @foreach ($purchases as $purchase)
                   <tr class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border border-gray-400">{{ $purchase->tgl_pembelian_formatted }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $purchase->nama_pengguna }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $purchase->nama_supplier }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchase->total_pembelian }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $purchase->total_pembelian_formatted }}</td>
                     <td class="py-2 px-4 border border-gray-400">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
+                      <a href="{{ route('pembelian.getPurchaseDetail',$purchase->id_pembelian) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $purchase->id_pembelian }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @endforeach
@@ -90,24 +92,23 @@
                         let items = data.data;
                         if(data.data.length > 0) {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
+                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th><th class="py-2 px-4 border border-gray-400 w-1/7">Suplier</th><th class="py-2 px-4 border border-gray-400 w-1/7">Total Pembelian</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
                           items.forEach(function(item){
                             html += `<tr class="hover:bg-gray-50">
-                                      <td class="py-2 px-4 border border-gray-400">${item.nama_obat}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.nama_kategori}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.harga_jual}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.stok}</td>
+                                      <td class="py-2 px-4 border border-gray-400">${item.nama_pengguna}</td>
+                                      <td class="py-2 px-4 border border-gray-400">${item.nama_supplier}</td>
+                                      <td class="py-2 px-4 border border-gray-400">${item.total_pembelian}</td>
                                       <td class="py-2 px-4 border border-gray-400">
-                                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; current= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
-                                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_obat}'><i class="fa-solid fa-trash"></i></button>
+                                        <a href=""><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                                        <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id = ${item.id_pembelian}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
-                                      </tr>`;
+                                    </tr>`;
                           });
                           html += `</tbody></table>`
                         } else {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
-                          html += '<tbody><tr><td colspan="5" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
+                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th><th class="py-2 px-4 border border-gray-400 w-1/7">Suplier</th><th class="py-2 px-4 border border-gray-400 w-1/7">Total Pembelian</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
+                          html += '<tbody><tr><td colspan="4" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
                         }
                         $('#main-table').addClass('hidden');
                         $('#result').html(html).removeClass('hidden');
