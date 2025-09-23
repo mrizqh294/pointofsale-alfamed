@@ -5,6 +5,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
@@ -91,5 +92,10 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::post('/admin/pembelian/',[PembelianController::class, 'addPurchase'])->name('pembelian.addPurchase');
     Route::delete('/admin/pembelian/{id}',[PembelianController::class, 'destroyPurchase'])->name('pembelian.destroyPurchase');
 
-
+    Route::get('/admin/penjualan',[PenjualanController::class, 'getSale'])->name('penjualan.getSale');
+    Route::get('/admin/penjualan/detail/{id}',[penjualanController::class, 'getSaleDetail'])->name('penjualan.getSaleDetail');
+    Route::get('/admin/penjualan/cari', [penjualanController::class, 'findSale'])->name('penjualan.findSale');
+    Route::get('/admin/penjualan/tambah',[penjualanController::class, 'getAddSale'])->name('penjualan.getAddSale');
+    Route::post('/admin/penjualan/',[penjualanController::class, 'addSale'])->name('penjualan.addSale');
+    Route::delete('/admin/penjualan/{id}',[penjualanController::class, 'destroySale'])->name('penjualan.destroySale');
 });

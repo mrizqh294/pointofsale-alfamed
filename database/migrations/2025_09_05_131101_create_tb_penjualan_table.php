@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tb_penjualan', function (Blueprint $table) {
             $table->bigIncrements('id_penjualan');
-            $table->decimal('total_transaksi', 15, 2);
-            $table->date('tgl_transaksi');
+            $table->decimal('total_penjualan', 15, 2);
+            $table->date('tgl_penjualan');
             $table->unsignedBigInteger('id_pengguna');
             $table->timestamps();
 
