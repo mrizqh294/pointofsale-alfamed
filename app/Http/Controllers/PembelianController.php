@@ -25,35 +25,23 @@ class PembelianController extends Controller
         
         if($request->query()){
 
-            if($request->query('start_date') && $request->query('end_date') && $request->query('key'))
-            {
-                $startDate = $request->query('start_date');
-                $endDate = $request->query('end_date');
-                $key = $request->query('key');
+            $startDate = $request->query('start_date');
+            $endDate = $request->query('end_date');
+            $key = $request->query('key');
 
-                $purchases = $purchases
-                    ->where('tb_supplier.nama', 'like', "%{$key}%")
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereBetween('tgl_pembelian', [$startDate, $endDate]);
+            if($key){
+                $purchases->where('tb_supplier.nama', 'like', "%{$key}%")
+                    ->orWhere('tb_pengguna.nama', 'like', "%{$key}%");
+            }
+
+            if($startDate && $endDate){
+                $purchases->whereBetween('tgl_pembelian', [$startDate, $endDate]);
                     
-            } else if ($request->query('start_date')){
-                $key = $request->query('key');
-                $startDate = $request->query('start_date');
+            } else if ($startDate){
+                $purchases->whereDate('tgl_pembelian', '>=', $startDate);
 
-                $purchases = $purchases
-                    ->where('tb_supplier.nama', 'like', "%{$key}%")
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereDate('tgl_pembelian', '>=', $startDate);
-
-            } else if ($request->query('start_date')){
-                $key = $request->query('key');
-                $endDate = $request->query('end_date');
-
-                $purchases = $purchases
-                    ->where('tb_supplier.nama', 'like', "%{$key}%")
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereDate('tgl_pembelian', '<=', $endDate);
-
+            } else if ($endDate){
+               $purchases->whereDate('tgl_pembelian', '<=', $endDate);
             }
         }
 
@@ -133,9 +121,7 @@ class PembelianController extends Controller
     public function destroyPurchase($id)
     {
         Pembelian::where('id_pembelian', $id)->delete();
-
-        
-
+    
         return redirect()->route('pembelian.getPurchase')->with('status', 'Data Berhasil Dihapus!');
     }
 

@@ -22,7 +22,7 @@
                 <form action="{{ route('obat.findMedicine') }}" method="get">
                   @csrf
                   <input type="text" id="search" name="search" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Obat">
-                  <button type="submit" class="ms-1 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg">Cari</button>
+                  <button type="submit" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
               </div>
               <button class="btn cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAdd = !isOpenAdd"><i class="fa-solid fa-plus"></i> Tambah Data</button>
@@ -127,7 +127,7 @@
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Kategori</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/15">stok</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th>
                   </tr>
                 </thead>

@@ -19,7 +19,7 @@
 
             <div class="flex justify-between py-3">
               <div>
-                <a href="{{ route('pembelian.getPurchase') }}" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                <a href="{{ route('pembelian.getPurchase') }}" class="cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
               </div>
             </div>
 

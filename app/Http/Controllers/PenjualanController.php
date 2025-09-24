@@ -21,33 +21,21 @@ class PenjualanController extends Controller
 
         if($request->query()){
 
-            if($request->query('start_date') && $request->query('end_date') && $request->query('key'))
+            $startDate = $request->query('start_date');
+            $endDate = $request->query('end_date');
+            $key = $request->query('key');
+
+            if($key){
+                $sales->where('tb_pengguna.nama', 'like', "%{$key}%");
+            }
+
+            if($startDate && $endDate)
             {
-                
-                $startDate = $request->query('start_date');
-                $endDate = $request->query('end_date');
-                $key = $request->query('key');
-
-                $sales = $sales
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereBetween('tgl_penjualan', [$startDate, $endDate]);
-
-            } else if ($request->query('start_date')){
-
-                $startDate = $request->query('start_date');
-                $key = $request->query('key');
-
-                $sales = $sales
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereDate('tgl_penjualan', '>=', $startDate);
-            } else if ($request->query('end_date')){
-
-                $endDate = $request->query('end_date');
-                $key = $request->query('key');
-
-                $sales = $sales
-                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
-                    ->whereDate('tgl_penjualan', '>=', $endDate);
+                $sales->whereBetween('tgl_penjualan', [$startDate, $endDate]);
+            } else if ($startDate){
+                $sales->whereDate('tgl_penjualan', '>=', $startDate);
+            } else if ($endDate){
+                $sales->whereDate('tgl_penjualan', '<=', $endDate);
             }
 
         }

@@ -34,7 +34,8 @@
                     <div class="mx-1">
                       <input type="date" id="end_date" name="end_date" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-                    <button type="submit" class="ms-1 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg">Filter</button>
+                    <button type="submit" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-filter"></i></button>
+                    <a href="{{ route('penjualan.getSale') }}" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
                   </div>
                 </form>
               </div>
@@ -71,7 +72,7 @@
                   </tr>
                 </thead>
                 <tbody class="">
-                  @foreach ($sales as $sale)
+                  @forelse ($sales as $sale)
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border border-gray-400">{{ $sale->tgl_penjualan_formatted }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $sale->nama_pengguna }}</td>
@@ -81,7 +82,11 @@
                       <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $sale->id_penjualan }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
-                  @endforeach
+                  @empty
+                  <tr>
+                    <td colspan="4" class="text-center py-2 px-4 border border-gray-400">Data Masih Kosong</td>
+                  </tr>
+                  @endforelse
                 </tbody>
               </table>
               <div class="mt-4">

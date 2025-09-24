@@ -89,13 +89,13 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::get('/admin/pembelian/detail/{id}',[PembelianController::class, 'getPurchaseDetail'])->name('pembelian.getPurchaseDetail');
     Route::get('/admin/pembelian/cari', [PembelianController::class, 'findPurchase'])->name('pembelian.findPurchase');
     Route::get('/admin/pembelian/tambah',[PembelianController::class, 'getAddPurchase'])->name('pembelian.getAddPurchase');
-    Route::post('/admin/pembelian/',[PembelianController::class, 'addPurchase'])->name('pembelian.addPurchase');
+    Route::post('/admin/pembelian',[PembelianController::class, 'addPurchase'])->name('pembelian.addPurchase');
     Route::delete('/admin/pembelian/{id}',[PembelianController::class, 'destroyPurchase'])->name('pembelian.destroyPurchase');
 
     Route::get('/admin/penjualan',[PenjualanController::class, 'getSale'])->name('penjualan.getSale');
     Route::get('/admin/penjualan/detail/{id}',[penjualanController::class, 'getSaleDetail'])->name('penjualan.getSaleDetail');
     Route::get('/admin/penjualan/cari', [penjualanController::class, 'findSale'])->name('penjualan.findSale');
     Route::get('/admin/penjualan/tambah',[penjualanController::class, 'getAddSale'])->name('penjualan.getAddSale');
-    Route::post('/admin/penjualan/',[penjualanController::class, 'addSale'])->name('penjualan.addSale');
+    Route::post('/admin/penjualan',[penjualanController::class, 'addSale'])->name('penjualan.addSale');
     Route::delete('/admin/penjualan/{id}',[penjualanController::class, 'destroySale'])->name('penjualan.destroySale');
 });
