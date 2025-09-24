@@ -38,7 +38,7 @@
                                     <label for="jumlah_obat" class="block font-bold mb-2">Jumlah Obat</label>
                                 </th>
                                 <th class="py-2 w-2/7">
-                                     <label for="harga_beli" class="block font-bold mb-2">Harga Beli</label>
+                                     <label for="harga_beli" class="block font-bold mb-2">Harga/pcs</label>
                                 </th>
                                 <th class="py-2 w-1/7">
                                     <label for="tgl_kadaluarsa" class="block font-bold mb-2">Tanggal Kadaluarsa</label>
@@ -112,8 +112,8 @@
                     </template> --}}
 
                     <div class="flex flex-cols gap-4 py-4 justify-end">
-                        <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()"><i class="fa-solid fa-plus"></i> Tambah</button>
-                        <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
+                        <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()"><i class="fa-solid fa-plus"></i> Tambah</button>
+                        <button type="submit" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
                     </div>
                 </form>
             </div>

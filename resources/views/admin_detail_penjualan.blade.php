@@ -30,19 +30,14 @@
                 <table>
                   <tbody>
                   <tr>
-                    <th class="w-2/4">Supplier</th>
-                    <td class="w-5">:</td>
-                    <td>{{ $purchase->nama_supplier}}</td>
-                  </tr>
-                  <tr>
                     <th class="w-2/4">Pencatat</th>
-                    <td>:</td>
-                    <td>{{ $purchase->nama_pengguna}}</td>
+                    <td class="w-5">:</td>
+                    <td>{{ $sale->nama_pengguna}}</td>
                   </tr>
                   <tr>
-                    <th class="w-2/4">Tanggal Pembelian</th>
+                    <th class="w-2/4">Tanggal Penjualan</th>
                     <td>:</td>
-                    <td>{{ $purchase->tgl_pembelian_formatted }}</td>
+                    <td>{{ $sale->tgl_penjualan_formatted }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -55,26 +50,24 @@
                 <thead class="text-left">
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Nama Obat</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Beli</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Jumlah</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Kadaluarsa</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Sub Total</th>
                   </tr>
                 </thead>
                 <tbody class="">
-                  @foreach ($purchaseDetails as $purchaseDetail)
+                  @foreach ($saleDetails as $saleDetail)
                   <tr class="hover:bg-gray-50">
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchaseDetail->nama_obat }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchaseDetail->harga_beli_formatted }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchaseDetail->jumlah_obat }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchaseDetail->tgl_kadaluarsa_formatted }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchaseDetail->subtotal_pembelian_formatted }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $saleDetail->nama_obat }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $saleDetail->harga_jual_formatted }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $saleDetail->jumlah_obat }}</td>
+                    <td class="py-2 px-4 border border-gray-400">{{ $saleDetail->subtotal_penjualan_formatted }}</td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
               <div class="mt-4">
-                {{ $purchaseDetails->links() }}
+                {{ $saleDetails->links() }}
               </div>
             </div>
 

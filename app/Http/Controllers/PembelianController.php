@@ -10,7 +10,7 @@ use App\Models\Supplier;
 
 class PembelianController extends Controller
 {
-    public function getPurchase()
+    public function getPurchase(Request $request)
     {
         $purchases = Pembelian::from('tb_pembelian')
             ->join('tb_pengguna', 'tb_pembelian.id_pengguna', '=', 'tb_pengguna.id_pengguna')
@@ -21,7 +21,43 @@ class PembelianController extends Controller
                 'tb_supplier.*',
                 'tb_pengguna.nama as nama_pengguna',
                 'tb_supplier.nama as nama_supplier'
-            )->paginate(9);
+            );
+        
+        if($request->query()){
+
+            if($request->query('start_date') && $request->query('end_date') && $request->query('key'))
+            {
+                $startDate = $request->query('start_date');
+                $endDate = $request->query('end_date');
+                $key = $request->query('key');
+
+                $purchases = $purchases
+                    ->where('tb_supplier.nama', 'like', "%{$key}%")
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereBetween('tgl_pembelian', [$startDate, $endDate]);
+                    
+            } else if ($request->query('start_date')){
+                $key = $request->query('key');
+                $startDate = $request->query('start_date');
+
+                $purchases = $purchases
+                    ->where('tb_supplier.nama', 'like', "%{$key}%")
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereDate('tgl_pembelian', '>=', $startDate);
+
+            } else if ($request->query('start_date')){
+                $key = $request->query('key');
+                $endDate = $request->query('end_date');
+
+                $purchases = $purchases
+                    ->where('tb_supplier.nama', 'like', "%{$key}%")
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereDate('tgl_pembelian', '<=', $endDate);
+
+            }
+        }
+
+        $purchases = $purchases->paginate(9);
 
         return view('admin_pembelian', compact('purchases'), ['title' => 'Pembelian']);
     }

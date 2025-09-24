@@ -58,8 +58,8 @@
                     </table>
 
                     <div class="flex flex-cols gap-4 py-4 justify-end">
-                        <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()"><i class="fa-solid fa-plus"></i> Tambah</button>
-                        <button type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
+                        <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="tambahItem()"><i class="fa-solid fa-plus"></i> Tambah</button>
+                        <button type="submit" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
                     </div>
                 </form>
             </div>

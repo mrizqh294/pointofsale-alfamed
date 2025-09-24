@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
-    public function getSale()
+    public function getSale(Request $request)
     {
         $sales = Penjualan::from('tb_penjualan')
             ->join('tb_pengguna', 'tb_penjualan.id_pengguna', '=', 'tb_pengguna.id_pengguna')
@@ -17,7 +17,42 @@ class PenjualanController extends Controller
                 'tb_penjualan.*',
                 'tb_pengguna.*',
                 'tb_pengguna.nama as nama_pengguna'
-            )->paginate(9);
+            );
+
+        if($request->query()){
+
+            if($request->query('start_date') && $request->query('end_date') && $request->query('key'))
+            {
+                
+                $startDate = $request->query('start_date');
+                $endDate = $request->query('end_date');
+                $key = $request->query('key');
+
+                $sales = $sales
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereBetween('tgl_penjualan', [$startDate, $endDate]);
+
+            } else if ($request->query('start_date')){
+
+                $startDate = $request->query('start_date');
+                $key = $request->query('key');
+
+                $sales = $sales
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereDate('tgl_penjualan', '>=', $startDate);
+            } else if ($request->query('end_date')){
+
+                $endDate = $request->query('end_date');
+                $key = $request->query('key');
+
+                $sales = $sales
+                    ->where('tb_pengguna.nama', 'like', "%{$key}%")
+                    ->whereDate('tgl_penjualan', '>=', $endDate);
+            }
+
+        }
+
+        $sales = $sales->paginate(9);
 
         return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);
     }
@@ -36,7 +71,7 @@ class PenjualanController extends Controller
             ->join('tb_obat', 'tb_detail_penjualan.id_obat', '=', 'tb_obat.id_obat')
             ->select(
                 'tb_detail_penjualan.*',
-                'tb_obat.nama',
+                'tb_obat.*',
                 'tb_obat.nama as nama_obat'
             )
             ->where('id_penjualan',$id)
@@ -64,21 +99,21 @@ class PenjualanController extends Controller
         $total=0;
 
         foreach($request->items as $item){
-            $medic = Obat::where('id_obat', $item['id_obat']);
+            $medic = Obat::where('id_obat', $item['id_obat'])->first();
             $subtotal = $item['jumlah_obat'] * $medic->harga_jual;
             $total += $subtotal;
 
             DetailPenjualan::create([
-                'id_pembelian' => $sale->id_penjualan,
+                'id_penjualan' => $sale->id_penjualan,
                 'id_obat' => $item['id_obat'],
                 'jumlah_obat' => $item['jumlah_obat'],
-                'subtotal_pembelian' => $subtotal,
+                'subtotal_penjualan' => $subtotal,
             ]);
 
             Obat::where('id_obat', $item['id_obat'])->decrement('stok', $item['jumlah_obat']);
         }
 
-        $sale->update(['total_pembelian'=>$total]);
+        $sale->update(['total_penjualan'=>$total]);
         
         return redirect()->route('penjualan.getSale')->with('status', 'Data Berhasil Disimpan!');
     }

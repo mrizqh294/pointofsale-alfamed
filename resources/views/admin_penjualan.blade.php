@@ -11,20 +11,34 @@
                     <h1 class="font-bold mb-4 text-lg">
                       {{ session('status') }}
                     </h1>
-                    <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
+                    <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
                   </div>
                 </div>
               </div>
           @endif
 
             <div class="flex justify-between py-3">
-              <div>
-                <form action="{{ route('penjualan.findSale') }}" method="get">
+              <div class="w-2/3">
+                <form action="{{ route('penjualan.getSale') }}" method="get" class="">
                   @csrf
-                  <input type="text" id="search" name="search" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Pembelian">
+                  <div class="flex items-center">
+                    <div class="me-1">
+                      <input type="text" id="key" name="key" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pencatat">
+                    </div>
+                    <div class="mx-1">
+                      <input type="date" id="start_date" name="start_date" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mx-1">
+                      <p>-</p>
+                    </div>
+                    <div class="mx-1">
+                      <input type="date" id="end_date" name="end_date" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" class="ms-1 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg">Filter</button>
+                  </div>
                 </form>
               </div>
-              <a href="{{ route('penjualan.getAddSale') }}" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-plus"></i> Tambah Data</a>
+              <a href="{{ route('penjualan.getAddSale') }}" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-plus"></i> Tambah Data</a>
             </div>
 
             {{-- delete modal --}}
@@ -32,11 +46,11 @@
               <div class="p-8 bg-white w-1/3 rounded-xl">
                 <h1 class="font-bold mb-4 text-lg">Apakah Anda Yakin Ingin Menghapus Data Ini?</h1>
                 <p class="my-4">Data yang sudah dihapus tidak dapat dikembalikan.</p>
-                <form :action="`{{ route('pembelian.destroyPurchase', ':id') }}`.replace(':id', id)" method="POST">
+                <form :action="`{{ route('penjualan.destroySale', ':id') }}`.replace(':id', id)" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg">Hapus</button>
-                  <button type="button" class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy">Batal</button>
+                  <button type="submit" class="btn cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Hapus</button>
+                  <button type="button" class="cursor-pointer border-gray-300 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy"><i class="fa-solid fa-xmark"></i> Batal</button>
                  </form>
               </div>
             </div>
@@ -50,10 +64,10 @@
               <table class="min-w-full table-fixed border ">
                 <thead class="text-left">
                   <tr class="bg-gray-200">
-                    <th class="py-2 px-4 border border-gray-400 w-2/10">Tanggal</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/6">Pencatat</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Total Penjualan</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/9">Aksi</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/8">Tanggal</th>
+                    <th class="py-2 px-4 border border-gray-400 w-2/8">Pencatat</th>
+                    <th class="py-2 px-4 border border-gray-400 w-2/8">Total Penjualan</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/10">Aksi</th>
                   </tr>
                 </thead>
                 <tbody class="">

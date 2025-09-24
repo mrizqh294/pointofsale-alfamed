@@ -14,7 +14,7 @@
 
     <div class="flex items-center justify-center h-screen w-full bg-gray-100">
         <div class="flex w-full max-w-1/2 bg-white shadow-md rounded-lg">
-            <div class= "w-2/5 bg-teal-600 flex flex-col justify-center items-center rounded-s-lg">
+            <div class= "w-2/5 bg-teal-700 flex flex-col justify-center items-center rounded-s-lg">
                 <div class="p-6">
                     <img src="/images/alfamed-logo.png" alt="" class="w-60 h-60 rounded-full"> 
                 </div> 
@@ -37,9 +37,9 @@
                     <div>
                         <label for="role" class="block mb-2 text-sm font-medium text-gray-600">Role</label>
                         <select id="role" name="role" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="Pegawai">Pegawai</option>
+                            <option value="Kasir">Kasir</option>
                             <option value="Admin">Admin</option>
-                            <option value="Manajer">Manajer</option>
+                            <option value="Pemilik">Pemilik</option>
                         </select>
                     </div>
                     <button type="submit" class="w-full p-3 text-white bg-teal-600 rounded-lg hover:bg-teal-700 focus:outline-none">Login</button>
