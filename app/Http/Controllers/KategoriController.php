@@ -7,15 +7,20 @@ use App\Models\Kategori;
 
 class KategoriController extends Controller
 {
-    public function index()
-    {
-        $kategories = Kategori::all();
-        return view('admin_kategori', compact('kategories'), ['title' => 'Kategori Obat']);
-    }
 
-    public function getCategory()
+    public function getCategory(Request $request)
     {
-        $kategories = Kategori::paginate(9);
+        $kategories = Kategori::select('*');
+
+        if($request->query('search')){
+            $search = $request->query('search');
+
+            $kategories->where('kode', 'like', "%{$search}%")
+              ->orWhere('nama', 'like', "%{$search}%");
+        }
+
+        $kategories = $kategories->paginate(9);
+        
         return view('admin_kategori', compact('kategories'), ['title' => 'Kategori Obat']);
     }
 

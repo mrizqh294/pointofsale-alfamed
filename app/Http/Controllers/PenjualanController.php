@@ -65,6 +65,10 @@ class PenjualanController extends Controller
             ->where('id_penjualan',$id)
             ->paginate(9);
         
+        foreach($saleDetails as $saleDetail){
+            $saleDetail->harga_jual_formatted = 'Rp ' . number_format($saleDetail->harga_jual, 2, ',', '.');
+        }
+        
         return view('admin_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
     }
 
@@ -88,6 +92,11 @@ class PenjualanController extends Controller
 
         foreach($request->items as $item){
             $medic = Obat::where('id_obat', $item['id_obat'])->first();
+
+            if($medic->stok <= 0){
+                return redirect()->route('penjualan.getSale')->with('status', "Stok $medic->nama habis");
+            }
+            
             $subtotal = $item['jumlah_obat'] * $medic->harga_jual;
             $total += $subtotal;
 

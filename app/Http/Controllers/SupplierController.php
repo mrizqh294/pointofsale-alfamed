@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function getSupplier()
+    public function getSupplier(Request $request)
     {
-        $suppliers = Supplier::paginate(8);
+        $suppliers = Supplier::select('*');
+
+        if($request->query('search')){
+            $search = $request->query('search');
+
+            $suppliers->where('nama', 'like', "%{$search}%")
+              ->orWhere('alamat', 'like', "%{$search}%")
+              ->orWhere('kontak', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        $suppliers = $suppliers->paginate(9);
+
         return view('admin_supplier', compact('suppliers'), ['title' => 'Supplier']);
     }
 

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
+use Faker\Guesser\Name;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +20,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/admin', function () {
-    return view('admin', ['title' => 'Dashboard']);
-});
 
 Route::get('/pegawai', function () {
     return 'Hello Pegawai';
@@ -61,6 +60,8 @@ route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'showDashboardAdmin'])->name('admin.dashboard');
+
     Route::get('/admin/kategori',[KategoriController::class, 'getCategory'])->name('kategori.getCategory');
     Route::get('/admin/kategori/cari', [KategoriController::class, 'findCategory'])->name('kategori.findCategory');
     Route::post('/admin/kategori',[KategoriController::class, 'addCategory'])->name('kategori.addCategory');

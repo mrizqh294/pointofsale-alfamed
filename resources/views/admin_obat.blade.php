@@ -19,10 +19,11 @@
 
             <div class="flex justify-between py-3">
               <div>
-                <form action="{{ route('obat.findMedicine') }}" method="get">
+                <form action="{{ route('obat.getMedicine') }}" method="get">
                   @csrf
                   <input type="text" id="search" name="search" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Obat">
                   <button type="submit" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  <a href="{{ route('obat.getMedicine') }}" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
                 </form>
               </div>
               <button class="btn cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAdd = !isOpenAdd"><i class="fa-solid fa-plus"></i> Tambah Data</button>
@@ -132,7 +133,7 @@
                   </tr>
                 </thead>
                 <tbody class="">
-                  @foreach ($medics as $medic)
+                  @forelse ($medics as $medic)
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_obat }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_kategori }}</td>
@@ -143,7 +144,11 @@
                       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
-                  @endforeach
+                  @empty
+                  <tr>
+                    <td colspan="5" class="text-center py-2 px-4 border border-gray-400">Data Tidak Ditemukan!</td>
+                  </tr>
+                  @endforelse
                 </tbody>
               </table>
               <div class="mt-4">

@@ -86,7 +86,7 @@
                   </tr>
                   @empty
                   <tr>
-                    <td colspan="5" class="text-center py-2 px-4 border border-gray-400">Data Masih Kosong</td>
+                    <td colspan="5" class="text-center py-2 px-4 border border-gray-400">Data Tidak Ditemukan!</td>
                   </tr>
                   @endforelse
                 </tbody>

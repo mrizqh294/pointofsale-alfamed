@@ -3,26 +3,111 @@
 
   <x-main_content>
     <x-slot:title>{{ $title }}</x-slot>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-3">
-      <div class="bg-white p-6 rounded-lg shadow flex flex-cols">
-        <div class="w-1/5">
+    <div class="h-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-3">
+        <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
+          <div class="p-3">
+            <button class="bg-blue-400 text-white rounded-lg p-3"><i class="fa-solid fa-hand-holding-dollar text-3xl"></i></button>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Pendapatan Hari Ini</h2>
+            <p class="text-gray-700 text-lg">{{ $todayRevenueFormatted }}</p>
+          </div>
         </div>
-        <div>
-          <h2 class="text-xl font-bold mb-4">Penjualan</h2>
-          <p class="text-gray-700 text-3xl">1,234</p>
+        <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
+          <div class="p-3">
+            <button class="bg-green-400 text-white rounded-lg p-3"><i class="fa-solid fa-hand-holding-dollar text-3xl"></i></button>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Profit Hari Ini</h2>
+            <p class="text-gray-700 text-lg">{{ $todayProfitFormatted }}</p>
+          </div>
+        </div>
+        <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
+          <div class="p-3">
+            <button class="bg-purple-400 text-white rounded-lg p-3"><i class="fa-solid fa-tablets text-3xl"></i></button>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Stok Obat</h2>
+            <p class="text-gray-700 text-lg">{{ $totalStok }}</p>
+          </div>
+        </div>
+        <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
+          <div class="p-3">
+            <button class="bg-red-400 text-white rounded-lg p-3"><i class="fa-solid fa-circle-exclamation text-3xl"></i></button>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Stok Tipis</h2>
+            <p class="text-gray-700 text-lg">{{ $minimStockCount }}</p>
+          </div>
         </div>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-bold mb-4">Pembelian</h2>
-        <p class="text-gray-700 text-3xl">56</p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-bold mb-4">Obat</h2>
-        <p class="text-green-500 text-3xl">500</p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-bold mb-4">Suplier</h2>
-        <p class="text-green-500 text-3xl">10</p>
+      <div class ="py-6 grid grid-cols-2 gap-6">
+        {{-- tabel penjualan hari ini --}}
+        <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
+          <div class="p-2">
+            <h1 class="text-lg font-bold">Penjualan Hari Ini</h1>
+          </div>
+          <div class="p-2 overflow-y-auto">
+            <table class="min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead class="text-left">
+                <tr class="bg-gray-200">
+                  <th class="py-2 px-4  w-2/8">Pencatat</th>
+                  <th class="py-2 px-4  w-2/8">Total Penjualan</th>
+                  <th class="py-2 px-4  w-1/10">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                @forelse ($todaySales as $todaySale)
+                <tr class="hover:bg-gray-50">
+                  <td class="py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
+                  <td class="py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
+                  <td class="py-2 px-4 ">
+                    <a href="{{ route('penjualan.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                  </td>
+                </tr>
+                @empty
+                  <tr>
+                    <td colspan="3" class="text-center py-2 px-4 border border-gray-200">Belum Ada Penjualan Hari Ini</td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {{-- tabel obat stok tipis --}}
+        <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
+          <div class="p-2">
+            <h1 class="text-lg font-bold">Daftar Obat Stok Tipis</h1>
+          </div>
+          <div class="p-2 overflow-y-auto">
+            <table class="min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead class="text-left">
+                <tr class="bg-gray-200 font-light">
+                  <th class="py-2 px-4  w-2/8">Nama</th>
+                  <th class="py-2 px-4  w-2/8">Stok</th>
+                  <th class="py-2 px-4  w-1/10">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                @forelse ($minimStocks as $minimStock)
+                <tr class="hover:bg-gray-50">
+                  <td class="py-2 px-4 ">{{ $minimStock->nama }}</td>
+                  <td class="py-2 px-4 ">{{ $minimStock->stok}}</td>
+                  <td class="py-2 px-4 ">
+                    <a href="{{ route('pembelian.getAddPurchase')}}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                  </td>
+                </tr>
+                @empty
+                  <tr>
+                    <td colspan="3" class="text-center py-2 px-4 border border-gray-200">Belum Ada Penjualan Hari Ini</td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </x-main_content>

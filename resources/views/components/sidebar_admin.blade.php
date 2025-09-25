@@ -12,7 +12,7 @@
             <a href="/admin/pengguna" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-user p-2"></i>Pengguna</a>
             <a href="/admin/kategori" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-table-cells-large p-2"></i>Kategori</a>
             <a href="/admin/obat" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-tablets p-2"></i>Obat</a>
-            <a href="/admin/supplier" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-store p-2"></i>Suplier</a>
+            <a href="/admin/supplier" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-truck-field p-2"></i>Suplier</a>
             <a href="/admin/penjualan" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-chart-column p-2"></i></i>Penjualan</a>
             <a href="/admin/pembelian" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-basket-shopping p-2"></i>Pembelian</a>
             <button type="button" type="button" @click="laporanIsOpen = !laporanIsOpen" class="py-2.5 px-6 text-justify w-full cursor-pointer hover:bg-teal-600"><i class="fa-solid fa-book p-2"></i>Laporan<i class="fa fa-caret-down pl-8"></i></button>

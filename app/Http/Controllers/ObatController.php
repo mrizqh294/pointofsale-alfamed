@@ -8,7 +8,7 @@ use App\Models\Obat;
 
 class ObatController extends Controller
 {
-    public function getMedicine()
+    public function getMedicine(Request $request)
     {
         $kategories = Kategori::all();
 
@@ -19,7 +19,16 @@ class ObatController extends Controller
                 'tb_kategori_obat.*',
                 'tb_obat.nama as nama_obat',
                 'tb_kategori_obat.nama as nama_kategori',
-            )->paginate(9);
+            );
+        
+        if($request->query('search')){
+            $search = $request->query('search');
+
+            $medics->where('tb_obat.nama', 'like', "%{$search}%")
+                ->orWhere('tb_kategori_obat.nama', 'like', "%{$search}%");
+        }
+
+        $medics = $medics->paginate(9);
 
         return view('admin_obat', ['medics'=> $medics, 'kategories' => $kategories,'title' => 'Daftar Obat']);
     }

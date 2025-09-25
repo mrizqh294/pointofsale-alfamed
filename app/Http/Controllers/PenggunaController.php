@@ -8,9 +8,19 @@ use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
-    public function getUser()
+    public function getUser(Request $request)
     {
-        $penggunas = Pengguna::paginate(9);
+        $penggunas = Pengguna::select('*');
+
+        if($request->query('search')){
+            $search = $request->query('search');
+
+            $penggunas->where('username', 'like', "%{$search}%")
+                ->orWhere('nama', 'like', "%{$search}%");
+        }
+
+        $penggunas = $penggunas->paginate(9);
+
         return view('admin_pengguna', compact('penggunas'), ['title' => 'Pengguna']);
     }
 
