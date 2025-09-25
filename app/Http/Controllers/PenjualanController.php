@@ -42,7 +42,11 @@ class PenjualanController extends Controller
 
         $sales = $sales->paginate(9);
 
-        return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);
+        if(session('role') == 'Admin'){
+            return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);
+        } else if(session('role') == 'Pemilik'){
+            return view('pemilik_penjualan', compact('sales'), ['title' => 'Penjualan']);
+        }
     }
 
     public function getSaleDetail($id)
@@ -68,8 +72,12 @@ class PenjualanController extends Controller
         foreach($saleDetails as $saleDetail){
             $saleDetail->harga_jual_formatted = 'Rp ' . number_format($saleDetail->harga_jual, 2, ',', '.');
         }
-        
-        return view('admin_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
+
+        if(session('role') == 'Admin'){
+            return view('admin_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
+        } else if(session('role') == 'Pemilik'){
+            return view('pemilik_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
+        }
     }
 
     public function getAddSale()

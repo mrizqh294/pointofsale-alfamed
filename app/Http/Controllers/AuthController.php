@@ -22,7 +22,8 @@ class AuthController extends Controller
             
             session([
                 'nama' => Auth::user()->nama,
-                'id_pengguna' => Auth::user()->id_pengguna
+                'id_pengguna' => Auth::user()->id_pengguna,
+                'role' => Auth::user()->role
             ]);
 
             if($credentials['role'] == 'Admin'){
@@ -34,7 +35,7 @@ class AuthController extends Controller
             }
 
             if($credentials['role'] == 'Pemilik'){
-                return redirect()->intended('/pemilik');
+                return redirect()->intended('/pemilik/obat');
             }
   
         }

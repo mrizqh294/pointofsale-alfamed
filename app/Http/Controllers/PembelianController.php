@@ -47,7 +47,11 @@ class PembelianController extends Controller
 
         $purchases = $purchases->paginate(9);
 
-        return view('admin_pembelian', compact('purchases'), ['title' => 'Pembelian']);
+        if(session('role') == 'Admin'){
+            return view('admin_pembelian', compact('purchases'), ['title' => 'Pembelian']);
+        } else if(session('role') == 'Pemilik'){
+            return view('pemilik_pembelian', compact('purchases'), ['title' => 'Pembelian']);
+        }
     }
 
     public function getPurchaseDetail($id)
@@ -73,7 +77,11 @@ class PembelianController extends Controller
             ->where('id_pembelian',$id)
             ->paginate(9);
         
-        return view('admin_detail_pembelian', compact(['purchaseDetails', 'purchase']), ['title' => 'Detail Pembelian']);
+        if(session('role') == 'Admin'){
+             return view('admin_detail_pembelian', compact(['purchaseDetails', 'purchase']), ['title' => 'Detail Pembelian']);
+        } else if(session('role') == 'Pemilik'){
+             return view('pemilik_detail_pembelian', compact(['purchaseDetails', 'purchase']), ['title' => 'Detail Pembelian']);
+        }
     }
 
     public function getAddPurchase()

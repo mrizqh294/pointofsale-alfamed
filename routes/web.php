@@ -8,6 +8,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Middleware\checkRole;
 use Faker\Guesser\Name;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,9 @@ Route::get('/pegawai', function () {
     return 'Hello Pegawai';
 });
 
-Route::get('/manajer', function () {
-    return 'Hello Manajer';
-});
+// Route::get('/pemilik', function () {
+//     return 'Hello Manajer';
+// });
 
 // Route::get('/admin/kategori',[KategoriController::class, 'getCategory'])->name('kategori.getCategory');
 // Route::get('/admin/kategori/cari', [KategoriController::class, 'findCategory'])->name('kategori.findCategory');
@@ -56,7 +57,15 @@ Route::get('/manajer', function () {
 // Route::put('/admin/obat/{id}',[ObatController::class, 'updateMedicine'])->name('obat.updateMedicine');
 
 Route::post('/login',[AuthController::class, 'login'])->name('login');
-route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
+    Route::get('/pemilik/obat',[ObatController::class, 'getMedicine'])->name('pemilik.getMedicine');
+    Route::get('/pemilik/penjualan',[PenjualanController::class, 'getSale'])->name('pemilik.getSale');
+    Route::get('/pemilik/pembelian',[PembelianController::class, 'getPurchase'])->name('pemilik.getPurchase');
+    Route::get('/pemilik/penjualan/detail/{id}',[penjualanController::class, 'getSaleDetail'])->name('pemilik.getSaleDetail');
+    Route::get('/pemilik/pembelian/detail/{id}',[PembelianController::class, 'getPurchaseDetail'])->name('pemilik.getPurchaseDetail');
+});
 
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {

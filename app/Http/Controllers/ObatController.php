@@ -30,7 +30,11 @@ class ObatController extends Controller
 
         $medics = $medics->paginate(9);
 
-        return view('admin_obat', ['medics'=> $medics, 'kategories' => $kategories,'title' => 'Daftar Obat']);
+        if (session('role') == 'Admin'){
+            return view('admin_obat', ['medics'=> $medics, 'kategories' => $kategories,'title' => 'Daftar Obat']);
+        } else if (session('role') == 'Pemilik') {
+            return view('pemilik_obat', ['medics'=> $medics, 'kategories' => $kategories,'title' => 'Daftar Obat']); 
+        }
     }
 
     public function addMedicine(Request $request)
