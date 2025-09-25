@@ -2,12 +2,13 @@
     @if (session('status'))
         <div x-data="{isOpenAlert: true}" x-cloak>
             <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenAlert">
-                <div class="p-8 bg-white w-1/3 rounded-xl text-center">
-                    <h1 class="font-bold mb-4 text-lg">
+                <div class="p-8 bg-white w-1/3 rounded-xl text-center grid gird-cols-1 place-items-center">
+                    <h1 class="font-bold text-lg">
                       {{ session('status') }}
                     </h1>
-                    <button type="button" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
-                </div>
+                    <img src="/images/cancel.svg" class="p-5">
+                    <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
+                  </div>
             </div>
         </div>
     @endif

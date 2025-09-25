@@ -7,10 +7,11 @@
           @if (session('status'))
               <div x-data="{isOpenAlert: true}">
                 <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenAlert">
-                  <div class="p-8 bg-white w-1/3 rounded-xl text-center">
-                    <h1 class="font-bold mb-4 text-lg">
+                  <div class="p-8 bg-white w-1/3 rounded-xl text-center grid gird-cols-1 place-items-center">
+                    <h1 class="font-bold text-lg">
                       {{ session('status') }}
                     </h1>
+                    <img src="/images/confirm.svg" class="p-5">
                     <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
                   </div>
                 </div>
@@ -51,7 +52,7 @@
                     <div class="mb-4">
                       <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
                       <select id="role" name="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <option value="Kasir">Pegawai</option>
+                        <option value="Kasir">Kasir</option>
                         <option value="Admin">Admin</option>
                       </select>
                     </div>

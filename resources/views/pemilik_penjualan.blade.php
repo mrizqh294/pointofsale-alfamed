@@ -43,7 +43,7 @@
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->nama_pengguna }}</td>
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
                         <td class="py-2 px-4 border border-gray-400">
-                        <a href="{{ route('pemilik.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                        <a href="{{ route('pemilik.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info"></i></button></a>
                         <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $sale->id_penjualan }}"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>

@@ -35,17 +35,17 @@ class PembelianController extends Controller
             }
 
             if($startDate && $endDate){
-                $purchases->whereBetween('tgl_pembelian', [$startDate, $endDate]);
+                $purchases->whereBetween('tb_pembelian.tgl_pembelian', [$startDate, $endDate]);
                     
             } else if ($startDate){
-                $purchases->whereDate('tgl_pembelian', '>=', $startDate);
+                $purchases->whereDate('tb_pembelian.tgl_pembelian', '>=', $startDate);
 
             } else if ($endDate){
-               $purchases->whereDate('tgl_pembelian', '<=', $endDate);
+                $purchases->whereDate('tb_pembelian.tgl_pembelian', '<=', $endDate);
             }
         }
 
-        $purchases = $purchases->paginate(9);
+        $purchases = $purchases->paginate(9)->appends($request->query());
 
         if(session('role') == 'Admin'){
             return view('admin_pembelian', compact('purchases'), ['title' => 'Pembelian']);
@@ -107,6 +107,13 @@ class PembelianController extends Controller
         foreach($request->items as $item){
             $subtotal = $item['jumlah_obat'] * $item['harga_beli'];
             $total += $subtotal;
+
+            $medic = Obat::where('id_obat', $item['id_obat'])->first();
+
+            if($medic->stok !== $item['harga_beli']){
+                $medic->harga_beli = $item['harga_beli'];
+                $medic->save();
+            }
 
             DetailPembelian::create([
                 'id_pembelian' => $purchase->id_pembelian,

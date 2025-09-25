@@ -31,16 +31,16 @@ class PenjualanController extends Controller
 
             if($startDate && $endDate)
             {
-                $sales->whereBetween('tgl_penjualan', [$startDate, $endDate]);
+                $sales->whereBetween('tb_penjualan.tgl_penjualan', [$startDate, $endDate]);
             } else if ($startDate){
-                $sales->whereDate('tgl_penjualan', '>=', $startDate);
+                $sales->whereDate('tb_penjualan.tgl_penjualan', '>=', $startDate);
             } else if ($endDate){
-                $sales->whereDate('tgl_penjualan', '<=', $endDate);
+                $sales->whereDate('tb_penjualan.tgl_penjualan', '<=', $endDate);
             }
 
         }
 
-        $sales = $sales->paginate(9);
+        $sales = $sales->paginate(9)->appends($request->query());
 
         if(session('role') == 'Admin'){
             return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);

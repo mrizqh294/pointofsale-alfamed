@@ -19,7 +19,7 @@ class PenggunaController extends Controller
                 ->orWhere('nama', 'like', "%{$search}%");
         }
 
-        $penggunas = $penggunas->paginate(9);
+        $penggunas = $penggunas->paginate(9)->appends($request->query());;
 
         return view('admin_pengguna', compact('penggunas'), ['title' => 'Pengguna']);
     }

@@ -20,7 +20,7 @@ class SupplierController extends Controller
               ->orWhere('email', 'like', "%{$search}%");
         }
 
-        $suppliers = $suppliers->paginate(9);
+        $suppliers = $suppliers->paginate(9)->appends($request->query());;
 
         return view('admin_supplier', compact('suppliers'), ['title' => 'Supplier']);
     }

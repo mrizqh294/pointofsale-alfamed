@@ -40,7 +40,7 @@ class AuthController extends Controller
   
         }
  
-        return back()->with('status', 'Login Gagal');
+        return back()->with(['status'=>'Login Gagal', 'pesan'=>'Periksa kombinasi username dan password anda!']);
     }
 
     public function logout(Request $request)

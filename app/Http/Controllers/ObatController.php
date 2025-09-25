@@ -28,7 +28,7 @@ class ObatController extends Controller
                 ->orWhere('tb_kategori_obat.nama', 'like', "%{$search}%");
         }
 
-        $medics = $medics->paginate(9);
+        $medics = $medics->paginate(9)->appends($request->query());;
 
         if (session('role') == 'Admin'){
             return view('admin_obat', ['medics'=> $medics, 'kategories' => $kategories,'title' => 'Daftar Obat']);

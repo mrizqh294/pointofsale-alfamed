@@ -19,7 +19,7 @@ class KategoriController extends Controller
               ->orWhere('nama', 'like', "%{$search}%");
         }
 
-        $kategories = $kategories->paginate(9);
+        $kategories = $kategories->paginate(9)->appends($request->query());;
         
         return view('admin_kategori', compact('kategories'), ['title' => 'Kategori Obat']);
     }
