@@ -10,6 +10,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Middleware\checkRole;
 use Faker\Guesser\Name;
+use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,7 @@ Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
+    Route::get('/pemilik',[DashboardController::class, 'showDashboardPemilik'])->name('pemilik.dashboard');
     Route::get('/pemilik/obat',[ObatController::class, 'getMedicine'])->name('pemilik.getMedicine');
     Route::get('/pemilik/penjualan',[PenjualanController::class, 'getSale'])->name('pemilik.getSale');
     Route::get('/pemilik/pembelian',[PembelianController::class, 'getPurchase'])->name('pemilik.getPurchase');

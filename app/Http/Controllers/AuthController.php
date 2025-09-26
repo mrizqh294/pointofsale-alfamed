@@ -35,7 +35,7 @@ class AuthController extends Controller
             }
 
             if($credentials['role'] == 'Pemilik'){
-                return redirect()->intended('/pemilik/obat');
+                return redirect()->intended('/pemilik');
             }
   
         }

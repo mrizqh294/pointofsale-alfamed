@@ -101,7 +101,7 @@
                 </tr>
                 @empty
                   <tr>
-                    <td colspan="3" class="text-center py-2 px-4 border border-gray-200">Belum Ada Penjualan Hari Ini</td>
+                    <td colspan="3" class="text-center py-2 px-4 border border-gray-200">Semua Produk in Stok</td>
                   </tr>
                 @endforelse
               </tbody>
