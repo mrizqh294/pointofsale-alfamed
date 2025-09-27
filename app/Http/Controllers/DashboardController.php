@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -73,6 +74,16 @@ class DashboardController extends Controller
             ->whereMonth('tgl_pembelian', Carbon::now()->month)
             ->whereYear('tgl_pembelian', Carbon::now()->year)
             ->sum('total_pembelian');
+        
+        $todaySales = Penjualan::from('tb_penjualan')
+            ->join('tb_pengguna', 'tb_penjualan.id_pengguna', '=', 'tb_pengguna.id_pengguna')
+            ->select(
+                'tb_penjualan.*',
+                'tb_pengguna.*',
+                'tb_pengguna.nama as nama_pengguna'
+            )->whereDate('tb_penjualan.created_at', Carbon::today())->get();
+
+        // penjualan vs pembelian chart
 
         $tahun = date('Y');
         $bulan = date('m');
@@ -103,13 +114,31 @@ class DashboardController extends Controller
             ->setHeight(440)
             ->setXAxis($dataBulan);
         
+        // top 5 product chart
         
+        $topProducts = DetailPenjualan::from('tb_detail_penjualan')
+            ->join('tb_obat', 'tb_detail_penjualan.id_obat', '=', 'tb_obat.id_obat')
+            ->select('tb_obat.nama', DB::raw('COUNT(*) as jumlah'))
+            ->whereMonth('tb_detail_penjualan.created_at', Carbon::now()->month)
+            ->whereYear('tb_detail_penjualan.created_at', Carbon::now()->year)
+            ->groupBy('tb_detail_penjualan.id_obat', 'tb_obat.nama')
+            ->orderBy('jumlah','DESC')
+            ->limit(5)
+            ->get();
+        
+        foreach ($topProducts as $topProduct){
+            $salePerProduct[] = $topProduct->jumlah;
+            $nameSaleProduct[] = $topProduct->nama;
+        }
+
         $topProductChart = (new LarapexChart)->barChart()
             ->setTitle('Top 5 Obat')
             ->setSubtitle('Top 5 Obat Paling Laris Bulan Ini')
-            ->addData('Jumlah Penjualan', [6, 9, 3, 4, 10])
+            ->addData('Jumlah Penjualan', $salePerProduct)
             ->setHeight(440)
-            ->setXAxis(['Paracetamol', 'Tolak Angin', 'Paraflu', 'STMJ', 'Pasifrim']);
+            ->setXAxis($nameSaleProduct);
+                    
+        
 
         $monthlyRevenue = 'Rp ' . number_format($monthlyRevenueQuery, 2, ',', '.');
 
@@ -121,6 +150,6 @@ class DashboardController extends Controller
 
         $minimStockCount = $minimStocks->count();
 
-        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount', 'salesTrendChart', 'topProductChart'), ['title'=>'Dashboard']);
+        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount', 'salesTrendChart', 'topProductChart','todaySales'), ['title'=>'Dashboard']);
     }
 }

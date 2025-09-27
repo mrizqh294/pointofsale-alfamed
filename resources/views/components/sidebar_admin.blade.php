@@ -5,7 +5,7 @@
         <img src="/images/alfamed-logo.png" alt="Logo" class="w-10 h-10 rounded-full" />
         <span class="p-6 text-xl font-bold">Apotek Alfamed</span>
       </div>
-      <nav class="font-semibold" x-data="{ isOpen: false, laporanIsOpen: false }" x-cloak>
+      <nav class="" x-data="{ isOpen: false, laporanIsOpen: false }" x-cloak>
         <div class="max-h-full flex flex-col content-between">
           <div>
             <a href="/admin" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-house p-2"></i>Dashboard</a>
@@ -33,7 +33,7 @@
         </div>
       </nav>
     </div>
-    <div class="font-semibold bg-teal-700 pb-6">
+    <div class="bg-teal-700 pb-6">
       <a href="{{ route('logout') }}" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-right-from-bracket p-2"></i>Keluar</a>
     </div>
   </div>

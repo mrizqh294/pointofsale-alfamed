@@ -16,3 +16,7 @@
     font-family: 'Poppins', sans-serif;
   }
 }
+
+.apexcharts-svg .apexcharts-text {
+    font-family: 'Poppins', sans-serif !important;
+}
