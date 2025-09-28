@@ -118,7 +118,7 @@ class DashboardController extends Controller
         
         $topProducts = DetailPenjualan::from('tb_detail_penjualan')
             ->join('tb_obat', 'tb_detail_penjualan.id_obat', '=', 'tb_obat.id_obat')
-            ->select('tb_obat.nama', DB::raw('COUNT(*) as jumlah'))
+            ->select('tb_detail_penjualan.id_obat','tb_obat.nama',DB::raw('SUM(tb_detail_penjualan.jumlah_obat) as jumlah'))
             ->whereMonth('tb_detail_penjualan.created_at', Carbon::now()->month)
             ->whereYear('tb_detail_penjualan.created_at', Carbon::now()->year)
             ->groupBy('tb_detail_penjualan.id_obat', 'tb_obat.nama')

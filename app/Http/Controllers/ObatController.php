@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ObatExports;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Obat;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ObatController extends Controller
 {
@@ -97,5 +99,12 @@ class ObatController extends Controller
             })->paginate(9); 
 
         return response()->json($medics);
+    }
+
+    public function exportObat() 
+    {
+        $fileName = 'Stok_Obat_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new ObatExports, $fileName);
     }
 }

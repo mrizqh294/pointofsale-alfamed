@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PembelianExports;
 use Illuminate\Http\Request;
 use App\Models\Pembelian;
 use App\Models\DetailPembelian;
 use App\Models\Obat;
 use App\Models\Supplier;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PembelianController extends Controller
 {
@@ -159,5 +161,14 @@ class PembelianController extends Controller
             })->paginate(9);
 
         return response()->json($purchases);
+    }
+
+    public function exportPembelian(Request $request)
+    {
+        $filters = $request->only(['start_date', 'end_date', 'key']);
+
+        $fileName = 'Pembelian_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new PembelianExports($filters), $fileName);
     }
 }

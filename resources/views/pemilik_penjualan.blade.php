@@ -3,7 +3,7 @@
     <x-main_content>
         <x-slot:title>{{ $title }}</x-slot:title>
         <div class="flex justify-between py-3">
-            <div class="w-2/3">
+            <div>
                 <form action="{{ route('pemilik.getSale') }}" method="get" class="">
                   @csrf
                     <div class="flex items-center">
@@ -20,7 +20,8 @@
                             <input type="date" id="end_date" name="end_date" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                         <button type="submit" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-filter"></i></button>
-                        <a href="{{ route('pemilik.getSale') }}" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
+                        <a href="{{ route('pemilik.getSale') }}" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
+                        <a href="{{ route('pemilik.exportPenjualan', request()->query()) }}" class="mx-1 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-file-excel"></i> Ekspor</a>
                     </div>
                 </form>
             </div>

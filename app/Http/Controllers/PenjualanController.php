@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PenjualanExports;
 use App\Models\DetailPenjualan;
 use App\Models\Obat;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PenjualanController extends Controller
 {
@@ -146,5 +148,14 @@ class PenjualanController extends Controller
             })->paginate(9);
 
         return response()->json($sales);
+    }
+
+    public function exportPenjualan(Request $request)
+    {
+        $filters = $request->only(['start_date', 'end_date', 'key']);
+
+        $fileName = 'Penjualan_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new PenjualanExports($filters), $fileName);
     }
 }

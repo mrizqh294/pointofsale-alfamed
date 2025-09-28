@@ -19,8 +19,8 @@
           @endif
 
             <div class="flex justify-between py-3">
-              <div class="w-2/3">
-                <form action="{{ route('penjualan.getSale') }}" method="get" class="">
+              <div>
+                <form method="get" class="">
                   @csrf
                   <div class="flex items-center">
                     <div class="me-1">
@@ -35,8 +35,9 @@
                     <div class="mx-1">
                       <input type="date" id="end_date" name="end_date" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-                    <button type="submit" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-filter"></i></button>
-                    <a href="{{ route('penjualan.getSale') }}" class="ms-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    <button type="submit" formaction="{{ route('penjualan.getSale') }}" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-filter"></i></button>
+                    <a href="{{ route('penjualan.getSale') }}" class="mx-1 cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    <a href="{{ route('penjualan.exportPenjualan', request()->query()) }}" class="mx-1 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-file-excel"></i> Ekspor</a>
                   </div>
                 </form>
               </div>

@@ -9,8 +9,8 @@
             <button class="bg-blue-400 text-white rounded-lg p-3"><i class="fa-solid fa-hand-holding-dollar text-3xl"></i></button>
           </div>
           <div>
-            <h2 class="text-lg font-bold">Revenue Bulan Ini</h2>
-            <p class="text-gray-700 text-lg">{{ $monthlyRevenue }}</p>
+            <h2 class="text-lg">Revenue Bulan Ini</h2>
+            <p class="text-gray-700 font-bold text-lg">{{ $monthlyRevenue }}</p>
           </div>
         </div>
         <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
@@ -18,8 +18,8 @@
             <button class="bg-green-400 text-white rounded-lg p-3"><i class="fa-solid fa-hand-holding-dollar text-3xl"></i></button>
           </div>
           <div>
-            <h2 class="text-lg font-bold">Profit Bulan Ini</h2>
-            <p class="text-gray-700 text-lg">{{ $monthlyProfit }}</p>
+            <h2 class="text-lg">Profit Bulan Ini</h2>
+            <p class="text-gray-700 font-bold text-lg">{{ $monthlyProfit }}</p>
           </div>
         </div>
         <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
@@ -27,8 +27,8 @@
             <button class="bg-purple-400 text-white rounded-lg p-3"><i class="fa-solid fa-basket-shopping text-3xl"></i></i></button>
           </div>
           <div>
-            <h2 class="text-lg font-bold">Pembelian Bulan Ini</h2>
-            <p class="text-gray-700 text-lg">{{ $monthlyCost }}</p>
+            <h2 class="text-lg">Pembelian Bulan Ini</h2>
+            <p class="text-gray-700 font-bold text-lg">{{ $monthlyCost }}</p>
           </div>
         </div>
         <div class="bg-white p-2 rounded-lg shadow flex flex-cols items-center">
@@ -36,8 +36,8 @@
             <button class="bg-red-400 text-white rounded-lg p-3"><i class="fa-solid fa-circle-exclamation text-3xl"></i></button>
           </div>
           <div>
-            <h2 class="text-lg font-bold">Stok Tipis</h2>
-            <p class="text-gray-700 text-lg">{{ $minimStockCount }}</p>
+            <h2 class="text-lg">Stok Tipis</h2>
+            <p class="text-gray-700 font-bold text-lg">{{ $minimStockCount }}</p>
           </div>
         </div>
       </div>
