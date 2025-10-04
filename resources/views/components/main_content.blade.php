@@ -7,7 +7,7 @@
       </div>
     </header>
 
-    <main class="p-4 overflow-y-auto">
+    <main class="p-4 w-full h-full overflow-y-auto">
       {{ $slot }}
     </main>
 </div>

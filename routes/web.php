@@ -16,8 +16,12 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('login');});
+Route::get('/login', function () {return view('login');});
 Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
+Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine']);
 
 Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
     Route::get('/pemilik',[DashboardController::class, 'showDashboardPemilik'])->name('pemilik.dashboard');

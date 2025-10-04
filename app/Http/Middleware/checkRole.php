@@ -17,7 +17,7 @@ class checkRole
     {
         if($request->user()->role !== $role)
         {
-            return redirect('/login');
+            return redirect('/');
         }
         return $next($request);
     }

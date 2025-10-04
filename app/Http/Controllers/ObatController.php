@@ -39,6 +39,14 @@ class ObatController extends Controller
         }
     }
 
+    public function getCashierMedicine(){
+
+        $medics = Obat::all();
+
+        return view('kasir_transaksi', compact('medics'), ['title' => 'Transaksi Baru']);
+        
+    }
+
     public function addMedicine(Request $request)
     {
 
