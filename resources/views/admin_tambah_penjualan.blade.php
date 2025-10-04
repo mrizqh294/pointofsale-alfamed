@@ -35,7 +35,7 @@
                                 <tr class="text-light py-2">
                                     <td class="py-2 w-3/7">
                                         <div class="mb-4 me-2">
-                                            <select id="id_obat" :name="`items[${index}][id_obat]`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                            <select :name="`items[${index}][id_obat]`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                                                 @foreach ($medics as $medic)
                                                 <option value="{{ $medic->id_obat }}">{{ $medic->nama }}</option>
                                                 @endforeach

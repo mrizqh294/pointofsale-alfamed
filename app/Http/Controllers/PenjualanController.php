@@ -91,7 +91,6 @@ class PenjualanController extends Controller
 
     public function addSale(Request $request)
     {
-
         $sale = Penjualan::create([
             'id_pengguna' => $request->id_pengguna,
             'total_penjualan' => 0,
