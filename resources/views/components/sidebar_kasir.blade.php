@@ -10,7 +10,7 @@
           <div>
             <a href="/kasir" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-house p-2"></i>Dashboard</a>
             <a href="/kasir/transaksi" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-chart-column p-2"></i>Transaksi Baru</a>
-            <a href="/kasir/riwayat" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-book p-2"></i>Riwayat</a>
+            <a href="/kasir/transaksi/riwayat" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-book p-2"></i>Riwayat</a>
           </div>
         </div>
       </nav>

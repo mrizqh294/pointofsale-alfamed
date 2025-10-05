@@ -21,6 +21,11 @@ class PenjualanController extends Controller
                 'tb_pengguna.nama as nama_pengguna'
             );
 
+        if(session('role')== 'Kasir'){
+            $id = session('id_pengguna');
+            $sales->where('tb_penjualan.id_pengguna', $id);
+        }
+
         if($request->query()){
 
             $startDate = $request->query('start_date');
@@ -48,6 +53,8 @@ class PenjualanController extends Controller
             return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);
         } else if(session('role') == 'Pemilik'){
             return view('pemilik_penjualan', compact('sales'), ['title' => 'Penjualan']);
+        }else if(session('role')== 'Kasir'){
+            return view('kasir_riwayat_transaksi', compact('sales'), ['title' => 'Riwayat Transaksi']);
         }
     }
 
@@ -79,6 +86,8 @@ class PenjualanController extends Controller
             return view('admin_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
         } else if(session('role') == 'Pemilik'){
             return view('pemilik_detail_penjualan', compact(['saleDetails', 'sale']), ['title' => 'Detail Penjualan']);
+        }else if(session('role') == 'Kasir'){
+            return view('kasir_detail_transaksi', compact(['saleDetails', 'sale']), ['title' => 'Detail Transaksi']);
         }
     }
 

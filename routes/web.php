@@ -1,6 +1,5 @@
 <?php
 
-use App\Exports\ObatExports;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
@@ -9,11 +8,6 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Middleware\checkRole;
-use App\Models\Penjualan;
-use Faker\Guesser\Name;
-use GuzzleHttp\Middleware;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('login');});
@@ -21,9 +15,11 @@ Route::get('/login', function () {return view('login');});
 Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
+Route::middleware(['auth', 'checkRole:Kasir'])->group(function(){
     Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
     Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine'])->name('kasir.transaksi');
+    Route::get('/kasir/transaksi/riwayat', [PenjualanController::class, 'getSale'])->name('kasir.getSale');
+    Route::get('/kasir/transaksi/riwayat/detail/{id}', [PenjualanController::class, 'getSaleDetail'])->name('kasir.getSaleDetail');
     Route::post('/kasir/transaksi', [PenjualanController::class, 'addSale'])->name('kasir.addSale');
 });
 
