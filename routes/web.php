@@ -10,6 +10,7 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Middleware\checkRole;
+use App\Models\Penjualan;
 use Faker\Guesser\Name;
 use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Login;
@@ -20,8 +21,11 @@ Route::get('/login', function () {return view('login');});
 Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
-Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
-Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine']);
+Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
+    Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
+    Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine'])->name('kasir.transaksi');
+    Route::post('/kasir/transaksi', [PenjualanController::class, 'addSale'])->name('kasir.addSale');
+});
 
 Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
     Route::get('/pemilik',[DashboardController::class, 'showDashboardPemilik'])->name('pemilik.dashboard');
@@ -34,7 +38,6 @@ Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
     Route::get('/pemilik/penjualan/detail/{id}',[penjualanController::class, 'getSaleDetail'])->name('pemilik.getSaleDetail');
     Route::get('/pemilik/pembelian/detail/{id}',[PembelianController::class, 'getPurchaseDetail'])->name('pemilik.getPurchaseDetail');
 });
-
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'showDashboardAdmin'])->name('admin.dashboard');

@@ -27,15 +27,15 @@ class AuthController extends Controller
             ]);
 
             if($credentials['role'] == 'Admin'){
-                return redirect()->intended('/admin');
+                return redirect('/admin');
             }
 
             if($credentials['role'] == 'Kasir'){
-                return redirect()->intended('/kasir');
+                return redirect('/kasir');
             }
 
             if($credentials['role'] == 'Pemilik'){
-                return redirect()->intended('/pemilik');
+                return redirect('/pemilik');
             }
   
         }

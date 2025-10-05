@@ -47,7 +47,7 @@ class PembelianController extends Controller
             }
         }
 
-        $purchases = $purchases->paginate(9)->appends($request->query());
+        $purchases = $purchases->orderBy('tb_pembelian.created_at', 'desc')->paginate(9)->appends($request->query());
 
         if(session('role') == 'Admin'){
             return view('admin_pembelian', compact('purchases'), ['title' => 'Pembelian']);

@@ -42,7 +42,7 @@ class PenjualanController extends Controller
 
         }
 
-        $sales = $sales->paginate(9)->appends($request->query());
+        $sales = $sales->orderBy('tb_penjualan.created_at', 'desc')->paginate(9)->appends($request->query());
 
         if(session('role') == 'Admin'){
             return view('admin_penjualan', compact('sales'), ['title' => 'Penjualan']);
@@ -103,7 +103,11 @@ class PenjualanController extends Controller
             $medic = Obat::where('id_obat', $item['id_obat'])->first();
 
             if($medic->stok <= 0){
-                return redirect()->route('penjualan.getSale')->with('status', "Stok $medic->nama habis");
+                if(session('role') == 'Admin'){
+                    return redirect()->route('penjualan.getSale')->with('status', "Stok $medic->nama habis");
+                } else if(session('role') == 'Kasir'){
+                    return redirect()->route('kasir.transaksi')->with('status', "Stok $medic->nama habis");
+                }
             }
             
             $subtotal = $item['jumlah_obat'] * $medic->harga_jual;
@@ -120,8 +124,12 @@ class PenjualanController extends Controller
         }
 
         $sale->update(['total_penjualan'=>$total]);
-        
-        return redirect()->route('penjualan.getSale')->with('status', 'Data Berhasil Disimpan!');
+
+        if(session('role') == 'Admin'){
+            return redirect()->route('penjualan.getSale')->with('status', 'Data Berhasil Disimpan!');
+        } else if(session('role') == 'Kasir'){
+            return redirect()->route('kasir.transaksi')->with('status', 'Data Berhasil Disimpan!');
+        }
     }
 
 
