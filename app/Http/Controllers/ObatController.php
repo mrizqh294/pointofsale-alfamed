@@ -94,19 +94,33 @@ class ObatController extends Controller
     {
         $search = $request->input('data');
 
-        $medics = Obat::from('tb_obat')
-            ->join('tb_kategori_obat','tb_obat.id_kategori', '=', 'tb_kategori_obat.id_kategori')
-            ->select(
-                'tb_obat.*',
-                'tb_kategori_obat.*',
-                'tb_obat.nama as nama_obat',
-                'tb_kategori_obat.nama as nama_kategori',
-            )->where(function($query) use ($search){
-            $query->where('tb_obat.nama', 'like', "%{$search}%")
-            ->orWhere('tb_kategori_obat.nama', 'like', "%{$search}%");
-            })->paginate(9); 
+        // $medics = Obat::from('tb_obat')
+        //     ->join('tb_kategori_obat','tb_obat.id_kategori', '=', 'tb_kategori_obat.id_kategori')
+        //     ->select(
+        //         'tb_obat.*',
+        //         'tb_kategori_obat.*',
+        //         'tb_obat.nama as nama_obat',
+        //         'tb_kategori_obat.nama as nama_kategori',
+        //     )->where(function($query) use ($search){
+        //     $query->where('tb_obat.nama', 'like', "%{$search}%")
+        //     ->orWhere('tb_kategori_obat.nama', 'like', "%{$search}%");
+        //     })->paginate(9);
 
-        return response()->json($medics);
+        $medics = Obat::select('*')
+            ->where(function($query) use ($search){
+                $query->where('nama', 'like', "%{$search}%");
+            })->get();
+        
+        $html = view('kasir_transaksi_partial', compact('medics'))->render();
+
+        return response()->json(['html' => $html]);
+        
+        // if (session('role') == 'Admin'){
+        //     return response()->json($medics);
+        // } else if (session('role') == 'Kasir') {
+        //     return response()->json(['html' => $html]);
+        // }
+
     }
 
     public function exportObat() 

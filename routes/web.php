@@ -18,6 +18,7 @@ Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'checkRole:Kasir'])->group(function(){
     Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
     Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine'])->name('kasir.transaksi');
+    Route::get('/kasir/obat/cari', [ObatController::class, 'findMedicine'])->name('kasir.findMedicine');
     Route::get('/kasir/transaksi/riwayat', [PenjualanController::class, 'getSale'])->name('kasir.getSale');
     Route::get('/kasir/transaksi/riwayat/detail/{id}', [PenjualanController::class, 'getSaleDetail'])->name('kasir.getSaleDetail');
     Route::post('/kasir/transaksi', [PenjualanController::class, 'addSale'])->name('kasir.addSale');

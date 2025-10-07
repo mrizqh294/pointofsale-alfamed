@@ -6,36 +6,14 @@
             <div class="w-2/3">
                 <div class="bg-white px-4 py-4  rounded-lg shadow">
                     <div class="">
-                        <input type="text" id="search" name="search" class="px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Obat">
+                        <input type="text" id="search" name="search" class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Obat">
                     </div>
                 </div>
                 <div class="h-130 bg-white my-4 rounded-lg shadow">
                     <div class="border border-gray-300 rounded-lg overflow-hidden">
-                        <div class="overflow-y-auto max-h-130">
-                            <table class="w-full border-collapse">
-                                <thead class="bg-teal-600 text-white sticky top-0 z-10">
-                                    <tr>
-                                        <th class="ps-6 pe-4 py-2 text-left w-2/5">Obat</th>
-                                        <th class="px-4 py-4 text-right w-1/5">Harga</th>
-                                        <th class="px-4 py-2 text-center w-1/8">Stok</th>
-                                        <th class="px-4 py-2 text-left w-1/5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200">
-                                    @foreach ($medics as $medic)
-                                     <tr>  
-                                        <td class="ps-6 pe-4 py-2">{{ $medic->nama }}</td>
-                                        <td class="px-4 py-2 text-right">{{ $medic->harga_jual_formatted }}</td>
-                                        <td class="px-4 py-2 text-center">{{ $medic->stok }}</td>
-                                        <td class="px-4 py-2 text-right">
-                                            <button :class="ubahStyle({{ $loop->index }})" type="button" @click="kurangJumlah({{ $medic->id_obat }}, items)">-</button>
-                                            <input :value="tampilJumlah({{ $medic->id_obat }})" type="text" class="w-15 px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
-                                            <button :class="ubahStyle({{ $loop->index }})" type="button" @click="tambahJumlah({{ $medic->id_obat }}); tambahItem( {{ $loop->index }}, @js($medic->id_obat), @js($medic->nama), @js($medic->harga_jual), tampilJumlah({{ $medic->id_obat }})) ">+</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                        <div id="result" class="hidden overflow-y-auto max-h-130"></div>
+                        <div id="main_table" class="overflow-y-auto max-h-130">
+                            @include('kasir_transaksi_partial', ['medics' => $medics])
                         </div>
                     </div>
                 </div>
@@ -97,6 +75,33 @@
                 </div>
 
             </div>
+
+            <script>
+                $(document).ready(function() {
+                    $('#search').on('keyup', function() {
+                        let query = $(this).val();
+                        if (query.length > 0) {
+                            $.ajax({
+                                url: "{{ route('kasir.findMedicine') }}",
+                                type: 'GET',
+                                data: { data: query },
+                                success: function(data) {
+                                    $('#main_table').addClass('hidden');
+                                    $('#result').html(data.html).removeClass('hidden');
+                                    if (window.Alpine) {
+                                        Alpine.flushAndStopDeferringMutations?.();
+                                        Alpine.start();
+                                    }
+                                }
+                            });
+                        } else {
+                            $('#result').addClass('hidden');
+                            $('#main_table').removeClass('hidden');
+                        }
+                    });
+                });
+            </script>
+            
         </div>
     </x-main_content>
     <script>
@@ -105,7 +110,7 @@
                 items: [],
                 medics: [
                     @foreach ($medics as $medic)
-                        { stok: {{ $medic->stok }}},
+                        { id_obat: {{ $medic->id_obat }}, stok: {{ $medic->stok }}},
                     @endforeach
                 ],
 
@@ -122,8 +127,8 @@
                     }
                 },
 
-                ubahStyle(index){
-                    let stok = this.medics[index].stok;
+                ubahStyle(id){
+                    let stok = this.medics.find(i=> i.id_obat === id).stok;
                     let classes = "";
                     if(stok === 0){
                         classes += "w-9 text-center bg-gray-300 text-white py-2 rounded-lg";
@@ -193,4 +198,5 @@
             }
         }
     </script>
+
 </x-layout>

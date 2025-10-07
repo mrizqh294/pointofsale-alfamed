@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   @vite('resources/css/app.css')
   <script src="https://kit.fontawesome.com/fe3ef3fd79.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="//unpkg.com/alpinejs" defer></script>
   <style>[x-cloak] { display: none !important; }</style>  
   <title>Apotek Alfamed</title>
