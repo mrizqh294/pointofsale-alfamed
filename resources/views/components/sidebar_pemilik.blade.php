@@ -9,7 +9,7 @@
         <div class="max-h-full flex flex-col content-between">
           <div>
             <a href="/pemilik" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-house p-2"></i>Dashboard</a>
-            <a href="/pemilik/obat" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-tablets p-2"></i>Stok Obat</a>
+            <a href="/pemilik/obat" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-tablets p-2"></i>Obat</a>
             <a href="/pemilik/penjualan" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-chart-column p-2"></i></i>Penjualan</a>
             <a href="/pemilik/pembelian" class="block py-2.5 px-6 hover:bg-teal-600"><i class="fa-solid fa-basket-shopping p-2"></i>Pembelian</a>
           </div>

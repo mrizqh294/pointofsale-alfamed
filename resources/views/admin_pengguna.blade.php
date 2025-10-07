@@ -72,7 +72,7 @@
                   @method('PUT')
                   <div class="mb-4">
                     <label for="username" class="block text-gray-700 font-medium mb-2">Username</label>
-                    <input type="text" id="username" name="username" placeholder="" :placeholder="`${current.username}`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" readonly disabled>
+                    <input type="text" id="username" name="username" :placeholder="`${current.username}`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" readonly disabled>
                   </div>
                   <div class="mb-4">
                     <label for="nama" class="block text-gray-700 font-medium mb-2">Nama</label>
@@ -80,7 +80,7 @@
                   </div>
                   <div class="mb-4">
                     <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
-                    <input type="role" id="role" name="role" placeholder="" :value="`${current.role}`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <input type="text" id="role" name="role" :placeholder="`${current.role}`" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" readonly disabled>
                   </div>
                   <button type="submit" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Simpan</button>
                   <button type="button" class="cursor-pointer border-gray-300 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg" @click="isOpenUpdate = !isOpenUpdate"><i class="fa-solid fa-xmark"></i> Batal</button>
@@ -109,7 +109,7 @@
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
               <table class="min-w-full table-fixed border ">
-                <thead class="text-left">
+                <thead class="text-center">
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Username</th>
                     <th class="py-2 px-4 border border-gray-400 w-3/7">Nama</th>
@@ -123,9 +123,9 @@
                     <td class="py-2 px-4 border  border-gray-400">{{ $pengguna->username }}</td>
                     <td class="py-2 px-4 border  border-gray-400">{{ $pengguna->nama }}</td>
                     <td class="py-2 px-4 border  border-gray-400">{{ $pengguna->role }}</td>
-                    <td class="py-2 px-4 border  border-gray-400">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $pengguna->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $pengguna->id_pengguna }}"><i class="fa-solid fa-trash"></i></button>
+                    <td class="text-center py-2 px-4 border  border-gray-400">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $pengguna->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $pengguna->id_pengguna }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty
@@ -155,13 +155,13 @@
                         let items = data.data;
                         if(data.data.length > 0) {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Username</th><th class="py-2 px-4 border border-gray-400 w-3/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Role</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
+                          html += '<thead class="text-center"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Username</th><th class="py-2 px-4 border border-gray-400 w-3/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Role</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
                           items.forEach(function(item){
                             html += `<tr class="hover:bg-gray-50">
                                       <td class="py-2 px-4 border border-gray-400">${item.username}</td>
                                       <td class="py-2 px-4 border border-gray-400">${item.nama}</td>
                                       <td class="py-2 px-4 border border-gray-400">${item.role}</td>
-                                      <td class="py-2 px-4 border border-gray-400">
+                                      <td class="text-center py-2 px-4 border border-gray-400">
                                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; current= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
                                       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_pengguna}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
@@ -170,7 +170,7 @@
                           html += `</tbody></table>`
                         } else {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Username</th><th class="py-2 px-4 border border-gray-400 w-3/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Role</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead>'
+                          html += '<thead class="text-center"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Username</th><th class="py-2 px-4 border border-gray-400 w-3/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">Role</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead>'
                           html += '<tbody><tr><td colspan="4" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
                         }
                         $('#main-table').addClass('hidden');

@@ -28,12 +28,12 @@
                                         <td class="px-4 py-2 text-right">{{ $medic->harga_jual_formatted }}</td>
                                         <td class="px-4 py-2 text-center">{{ $medic->stok }}</td>
                                         <td class="px-4 py-2 text-right">
-                                            <input x-model="jumlah[{{ $loop->index }}].jumlah_obat" type="text" class="w-20 px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            <button type="button" @click="tambahJumlah({{ $loop->index }}); tambahItem( @js($medic->id_obat), @js($medic->nama), @js($medic->harga_jual), jumlah[{{ $loop->index }}].jumlah_obat)" class="text-center cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg">+</button>
+                                            <button :class="ubahStyle({{ $loop->index }})" type="button" @click="kurangJumlah({{ $medic->id_obat }}, items)">-</button>
+                                            <input :value="tampilJumlah({{ $medic->id_obat }})" type="text" class="w-15 px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                                            <button :class="ubahStyle({{ $loop->index }})" type="button" @click="tambahJumlah({{ $medic->id_obat }}); tambahItem( {{ $loop->index }}, @js($medic->id_obat), @js($medic->nama), @js($medic->harga_jual), tampilJumlah({{ $medic->id_obat }})) ">+</button>
                                         </td>
                                     </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -103,14 +103,34 @@
         function transaksiBaru() {
             return {
                 items: [],
+                medics: [
+                    @foreach ($medics as $medic)
+                        { stok: {{ $medic->stok }}},
+                    @endforeach
+                ],
 
-                tambahItem(id, nama, harga, jumlah) {
-                    let item = this.items.find(i=> i.id_obat === id)
-                    if(item){
-                        item.jumlah_obat = jumlah
-                    }else{
-                        this.items.push({ id_obat: id, nama: nama, harga_jual: harga, jumlah_obat: jumlah });
+                tambahItem(index, id, nama, harga, jumlah) {
+                    let item = this.items.find(i=> i.id_obat === id);
+                    let stok = this.medics[index].stok;
+
+                    if(stok!=0){
+                        if(item){
+                            item.jumlah_obat = jumlah
+                        }else{
+                            this.items.push({ id_obat: id, nama: nama, harga_jual: harga, jumlah_obat: jumlah });
+                        }
                     }
+                },
+
+                ubahStyle(index){
+                    let stok = this.medics[index].stok;
+                    let classes = "";
+                    if(stok === 0){
+                        classes += "w-9 text-center bg-gray-300 text-white py-2 rounded-lg";
+                    } else {
+                        classes += "w-9 text-center cursor-pointer bg-teal-600 hover:bg-teal-700 text-white py-2 rounded-lg";
+                    }
+                    return classes;
                 },
 
                 hapusItem(index) {
@@ -136,17 +156,36 @@
             return {
                 jumlah: [
                     @foreach ($medics as $medic)
-                        { id_obat: {{ $medic->id_obat }}, jumlah_obat: 0 },
+                        { id_obat: {{ $medic->id_obat }}, stok: {{ $medic->stok }}, jumlah_obat: 0 },
                     @endforeach
                 ],
 
-                tambahJumlah(index) {
-                    this.jumlah[index].jumlah_obat++;
+                tampilJumlah(id){
+                    let data = this.jumlah.find(i=> i.id_obat === id);
+                    return data.jumlah_obat;
+                },
+
+                tambahJumlah(id){
+                    let data = this.jumlah.find(i=> i.id_obat === id);
+                    let stok = data.stok;
+                    let jumlah = data.jumlah_obat;
+                    if(stok!=0 && stok > jumlah){
+                        data.jumlah_obat++;
+                    }
+                },
+
+                kurangJumlah(id, items){
+                    let item = items.find(i=> i.id_obat === id);
+                    let data = this.jumlah.find(i=> i.id_obat === id);
+                    let jumlah = data.jumlah_obat;
+                    if(jumlah>0){
+                        data.jumlah_obat--;
+                        item.jumlah_obat--;
+                    }
                 },
 
                 resetJumlah(id){
                     let data = this.jumlah.find(i=> i.id_obat === id);
-                    console.log(data)
                     if(data){
                         data.jumlah_obat = 0;
                     }

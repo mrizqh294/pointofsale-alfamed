@@ -57,12 +57,10 @@ class PenggunaController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'role' => 'required'
         ]);
 
         $pengguna = Pengguna::where('id_pengguna', $id)->first();
         $pengguna->nama = $validated['nama'];
-        $pengguna->role = $validated['role'];
         $pengguna->save();
 
         return redirect()->route('pengguna.getUser')->with('status', 'Data Berhasil Diupdate!');

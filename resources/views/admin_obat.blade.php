@@ -126,7 +126,7 @@
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
               <table class="min-w-full table-fixed border ">
-                <thead class="text-left">
+                <thead class="text-center">
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Kategori</th>
@@ -140,11 +140,11 @@
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_obat }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_kategori }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $medic->stok }}</td>
-                    <td class="py-2 px-4 border border-gray-400">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
+                    <td class="text-right py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
+                    <td class="text-center py-2 px-4 border border-gray-400">{{ $medic->stok }}</td>
+                    <td class="text-center py-2 px-4 border border-gray-400">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty
@@ -174,14 +174,14 @@
                         let items = data.data;
                         if(data.data.length > 0) {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
+                          html += '<thead class="text-center"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
                           items.forEach(function(item){
                             html += `<tr class="hover:bg-gray-50">
                                       <td class="py-2 px-4 border border-gray-400">${item.nama_obat}</td>
                                       <td class="py-2 px-4 border border-gray-400">${item.nama_kategori}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.harga_jual}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.stok}</td>
-                                      <td class="py-2 px-4 border border-gray-400">
+                                      <td class="text-right py-2 px-4 border border-gray-400">${item.harga_jual}</td>
+                                      <td class="text-center py-2 px-4 border border-gray-400">${item.stok}</td>
+                                      <td class="text-center py-2 px-4 border border-gray-400">
                                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; current= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
                                       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_obat}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
@@ -190,7 +190,7 @@
                           html += `</tbody></table>`
                         } else {
                           html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
+                          html += '<thead class="text-center"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th><th class="py-2 px-4 border border-gray-400 w-1/7">kategori</th><th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th><th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
                           html += '<tbody><tr><td colspan="5" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
                         }
                         $('#main-table').addClass('hidden');

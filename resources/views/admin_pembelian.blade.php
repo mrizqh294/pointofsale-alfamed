@@ -65,7 +65,7 @@
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
               <table class="min-w-full table-fixed border ">
-                <thead class="text-left">
+                <thead class="text-center">
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/12">Tanggal</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/6">Pencatat</th>
@@ -80,10 +80,10 @@
                     <td class="py-2 px-4 border border-gray-400">{{ $purchase->tgl_pembelian_formatted }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $purchase->nama_pengguna }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $purchase->nama_supplier }}</td>
-                    <td class="py-2 px-4 border border-gray-400">{{ $purchase->total_pembelian_formatted }}</td>
-                    <td class="py-2 px-4 border border-gray-400">
-                      <a href="{{ route('pembelian.getPurchaseDetail',$purchase->id_pembelian) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
-                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $purchase->id_pembelian }}"><i class="fa-solid fa-trash"></i></button>
+                    <td class="text-right py-2 px-4 border border-gray-400">{{ $purchase->total_pembelian_formatted }}</td>
+                    <td class="text-center py-2 px-4 border border-gray-400">
+                      <a href="{{ route('pembelian.getPurchaseDetail',$purchase->id_pembelian) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $purchase->id_pembelian }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty

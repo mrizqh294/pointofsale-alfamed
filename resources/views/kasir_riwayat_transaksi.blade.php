@@ -25,7 +25,7 @@
 
         <div id="main-table" class="block py-1"> 
             <table class="min-w-full table-fixed border ">
-                <thead class="text-left">
+                <thead class="text-center">
                     <tr class="bg-gray-200">
                         <th class="py-2 px-4 border border-gray-400 w-1/8">Tanggal</th>
                         <th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th>
@@ -38,9 +38,9 @@
                     <tr class="hover:bg-gray-50">
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->tgl_penjualan_formatted }}</td>
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->nama_pengguna }}</td>
-                        <td class="py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
+                        <td class="text-right py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
                         <td class="py-2 px-4 border text-center border-gray-400">
-                        <a href="{{ route('kasir.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info"></i></button></a>
+                        <a href="{{ route('kasir.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-circle-info"></i></button></a>
                         </td>
                     </tr>
                     @empty

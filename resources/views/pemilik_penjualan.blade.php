@@ -29,7 +29,7 @@
 
         <div id="main-table" class="block py-1"> 
             <table class="min-w-full table-fixed border ">
-                <thead class="text-left">
+                <thead class="text-center">
                     <tr class="bg-gray-200">
                         <th class="py-2 px-4 border border-gray-400 w-1/8">Tanggal</th>
                         <th class="py-2 px-4 border border-gray-400 w-2/8">Pencatat</th>
@@ -38,17 +38,17 @@
                     </tr>
                 </thead>
                 <tbody class="">
-                     @forelse ($sales as $sale)
+                    @forelse ($sales as $sale)
                     <tr class="hover:bg-gray-50">
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->tgl_penjualan_formatted }}</td>
                         <td class="py-2 px-4 border border-gray-400">{{ $sale->nama_pengguna }}</td>
-                        <td class="py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
-                        <td class="py-2 px-4 border border-gray-400">
-                        <a href="{{ route('pemilik.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info"></i></button></a>
-                        <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click="isOpenDestroy = !isOpenDestroy; id = {{ $sale->id_penjualan }}"><i class="fa-solid fa-trash"></i></button>
+                        <td class="text-right py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
+                        <td class="text-center py-2 px-4 border border-gray-400">
+                        <a href="{{ route('pemilik.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-circle-info"></i></button></a>
+                        <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $sale->id_penjualan }}"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
-                     @empty
+                    @empty
                     <tr>
                         <td colspan="4" class="text-center py-2 px-4 border border-gray-400">Data Tidak Ditemukan!</td>
                     </tr>
