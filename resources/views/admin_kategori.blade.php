@@ -106,8 +106,8 @@
                     <td class="text-center py-2 px-4 border  border-gray-400">{{ $kategori->kode }}</td>
                     <td class="py-2 px-4 border  border-gray-400">{{ $kategori->nama }}</td>
                     <td class="text-center py-2 px-4 border  border-gray-400">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; currentCategory = {{ $kategori->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $kategori->id_kategori }}"><i class="fa-solid fa-trash"></i></button>
+                      <button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; currentCategory = {{ $kategori->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $kategori->id_kategori }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty
@@ -145,8 +145,8 @@
                                       <td class="text-center py-2 px-4 border border-gray-400">${item.kode}</td>
                                       <td class="py-2 px-4 border border-gray-400">${item.nama}</td>
                                       <td class="text-center py-2 px-4 border border-gray-400">
-                                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; currentCategory= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
-                                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_kategori}'><i class="fa-solid fa-trash"></i></button>
+                                      <button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; currentCategory= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
+                                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_kategori}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
                                       </tr>`;
                           });

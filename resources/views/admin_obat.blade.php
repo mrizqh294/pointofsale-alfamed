@@ -143,8 +143,8 @@
                     <td class="text-right py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
                     <td class="text-center py-2 px-4 border border-gray-400">{{ $medic->stok }}</td>
                     <td class="text-center py-2 px-4 border border-gray-400">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
+                      <button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty
@@ -181,8 +181,8 @@
                                       <td class="text-right py-2 px-4 border border-gray-400">${item.harga_jual}</td>
                                       <td class="text-center py-2 px-4 border border-gray-400">${item.stok}</td>
                                       <td class="text-center py-2 px-4 border border-gray-400">
-                                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; current= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
-                                      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_obat}'><i class="fa-solid fa-trash"></i></button>
+                                      <button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"  @click='isOpenUpdate = !isOpenUpdate; current= ${JSON.stringify(item)}'><i class="fa-solid fa-pen-to-square"></i></button>
+                                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id= ${item.id_obat}'><i class="fa-solid fa-trash"></i></button>
                                       </td>
                                       </tr>`;
                           });

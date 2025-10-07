@@ -2,7 +2,7 @@
     <x-sidebar_admin></x-sidebar_admin>
     <x-main_content>
       <x-slot:title>{{ $title }}</x-slot>
-        <div class="" x-data="{ isOpenAdd: false, isOpenDestroy: false, isOpenUpdate: false, id: null, current: {} }" x-cloak>
+        <div>
 
           @if (session('status'))
               <div x-data="{isOpenAlert: true}">
@@ -44,23 +44,6 @@
               <a href="{{ route('penjualan.getAddSale') }}" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-2 rounded-lg"><i class="fa-solid fa-plus"></i> Tambah Data</a>
             </div>
 
-            {{-- delete modal --}}
-            <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenDestroy">
-              <div class="p-8 bg-white w-1/3 rounded-xl">
-                <h1 class="font-bold mb-4 text-lg">Apakah Anda Yakin Ingin Menghapus Data Ini?</h1>
-                <p class="my-4">Data yang sudah dihapus tidak dapat dikembalikan.</p>
-                <form :action="`{{ route('penjualan.destroySale', ':id') }}`.replace(':id', id)" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn cursor-pointer bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg"><i class="fa-solid fa-check"></i> Hapus</button>
-                  <button type="button" class="cursor-pointer border-gray-300 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg" @click="isOpenDestroy = !isOpenDestroy"><i class="fa-solid fa-xmark"></i> Batal</button>
-                 </form>
-              </div>
-            </div>
-
-            {{-- tabel result livesearch --}}
-            <div id="result" class="hidden"></div>
-
             
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
@@ -81,7 +64,6 @@
                     <td class="text-right py-2 px-4 border border-gray-400">{{ $sale->total_penjualan_formatted }}</td>
                     <td class="text-center py-2 px-4 border border-gray-400">
                       <a href="{{ route('penjualan.getSaleDetail',$sale->id_penjualan) }}"><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-circle-info my-1"></i></button></a>
-                      <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $sale->id_penjualan }}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
                   @empty

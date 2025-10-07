@@ -24,24 +24,26 @@
                         <h1 class="font-bold text-xl">Keranjang Transaksi</h1>
                     </div>
                     <div class="w-full my-6 ms-1 h-95">
-                        <table class="w-full">
-                            <thead class="bg-teal-600 text-white sticky top-0 z-10">
-                                <tr class="text-sm">
-                                    <th class="px-4 py-2 text-left w-2/3">Obat</th>
-                                    <th class="px-4 py-2 text-center w-1/5">Qty</th>
-                                    <th class="px-4 py-2 text-right w-1/5"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template x-for="(item, index) in items" :key="index">
-                                    <tr>
-                                        <td class="px-4 py-1 text-left w-2/3" x-text="item.nama"></td>
-                                        <td class="px-4 py-1 text-center w-1/5" x-text="item.jumlah_obat"></td>
-                                        <td class="px-4 py-1 text-right w-1/5"><button type="button" class="cursor cursor-pointer"><i class="fa-solid fa-trash text-red-500" @click="hapusItem(index); resetJumlah(item.id_obat)"></i></button></td>
+                        <div class="overflow-y-auto max-h-90">
+                            <table class="w-full">
+                                <thead class="bg-teal-600 text-white sticky top-0 z-10">
+                                    <tr class="text-sm">
+                                        <th class="px-4 py-2 text-left w-2/3">Obat</th>
+                                        <th class="px-4 py-2 text-center w-1/5">Qty</th>
+                                        <th class="px-4 py-2 text-right w-1/5"></th>
                                     </tr>
-                                </template> 
-                            </tbody>
-                        </table>  
+                                </thead>
+                                <tbody>
+                                    <template x-for="(item, index) in items" :key="index">
+                                        <tr>
+                                            <td class="px-4 py-1 text-left w-2/3" x-text="item.nama"></td>
+                                            <td class="px-4 py-1 text-center w-1/5" x-text="item.jumlah_obat"></td>
+                                            <td class="px-4 py-1 text-right w-1/5"><button type="button" class="cursor cursor-pointer"><i class="fa-solid fa-trash text-red-500" @click="hapusItem(index); resetJumlah(item.id_obat)"></i></button></td>
+                                        </tr>
+                                    </template> 
+                                </tbody>
+                            </table>  
+                        </div>
                     </div>
                     <h1 class="font-bold">Total Item : <span class="font-normal" x-text="jumlahItem()"></span></h1>
                     <h1 class="font-bold">Total Transaksi : <span class="font-normal" x-text="totalTransaksi()"></span></h1>

@@ -146,7 +146,7 @@ class PenjualanController extends Controller
     {
         Penjualan::where('id_penjualan', $id)->delete();
 
-        return redirect()->route('penjualan.getSale')->with('status', 'Data Berhasil Dihapus!');
+        return redirect()->route('pemilik.getSale')->with('status', 'Data Berhasil Dihapus!');
     }
 
     public function findSale(Request $request)

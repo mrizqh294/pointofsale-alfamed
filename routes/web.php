@@ -26,10 +26,13 @@ Route::middleware(['auth', 'checkRole:Kasir'])->group(function(){
 
 Route::middleware(['auth', 'checkRole:Pemilik'])->group(function(){
     Route::get('/pemilik',[DashboardController::class, 'showDashboardPemilik'])->name('pemilik.dashboard');
+    Route::get('/pemilik/pengguna',[PenggunaController::class, 'getUser'])->name('pemilik.getUser');
+    Route::delete('/pemilik/pengguna/{id}',[PenggunaController::class, 'destroyUser'])->name('pemilik.destroyUser');
     Route::get('/pemilik/obat',[ObatController::class, 'getMedicine'])->name('pemilik.getMedicine');
     Route::get('/pemilik/obat/export', [ObatController::class, 'exportObat'])->name('pemilik.exportObat');
     Route::get('/pemilik/penjualan',[PenjualanController::class, 'getSale'])->name('pemilik.getSale');
     Route::get('/pemilik/penjualan/export', [PenjualanController::class, 'exportPenjualan'])->name('pemilik.exportPenjualan');
+    Route::delete('/pemilik/penjualan/{id}',[penjualanController::class, 'destroySale'])->name('pemilik.destroySale');
     Route::get('/pemilik/pembelian',[PembelianController::class, 'getPurchase'])->name('pemilik.getPurchase');
     Route::get('/pemilik/pembelian/export', [PembelianController::class, 'exportPembelian'])->name('pemilik.exportPembelian');
     Route::get('/pemilik/penjualan/detail/{id}',[penjualanController::class, 'getSaleDetail'])->name('pemilik.getSaleDetail');

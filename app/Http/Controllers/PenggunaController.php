@@ -19,9 +19,13 @@ class PenggunaController extends Controller
                 ->orWhere('nama', 'like', "%{$search}%");
         }
 
-        $penggunas = $penggunas->paginate(9)->appends($request->query());;
+        $penggunas = $penggunas->paginate(9)->appends($request->query());
 
-        return view('admin_pengguna', compact('penggunas'), ['title' => 'Pengguna']);
+        if (session('role') == 'Admin'){
+            return view('admin_pengguna', compact('penggunas'), ['title' => 'Pengguna']);
+        } else if (session('role') == 'Pemilik') {
+            return view('pemilik_pengguna', compact('penggunas'), ['title' => 'Pengguna']); 
+        }
     }
 
     public function addUser(Request $request)
@@ -70,7 +74,11 @@ class PenggunaController extends Controller
     {
         Pengguna::where('id_pengguna', $id)->delete();
 
-        return redirect()->route('pengguna.getUser')->with('status', 'Data Berhasil Dihapus!');
+        if (session('role') == 'Admin'){
+            return redirect()->route('pengguna.getUser')->with('status', 'Data Berhasil Dihapus!');
+        } else if (session('role') == 'Pemilik') {
+            return redirect()->route('pemilik.getUser')->with('status', 'Data Berhasil Dihapus!'); 
+        }
     }
 
     public function findUser(Request $request)
