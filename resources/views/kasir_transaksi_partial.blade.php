@@ -16,7 +16,7 @@
             <td class="px-4 py-2 text-right">
                 <button :class="ubahStyle({{ $medic->id_obat }})" type="button" @click="kurangJumlah({{ $medic->id_obat }}, items)">-</button>
                 <input :value="tampilJumlah({{ $medic->id_obat }})" type="text" class="w-15 px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
-                <button :class="ubahStyle({{ $medic->id_obat }})" type="button" @click="tambahJumlah({{ $medic->id_obat }}); tambahItem( {{ $loop->index }}, @js($medic->id_obat), @js($medic->nama), @js($medic->harga_jual), tampilJumlah({{ $medic->id_obat }})) ">+</button>
+                <button :class="ubahStyle({{ $medic->id_obat }})" type="button" @click="tambahJumlah({{ $medic->id_obat }}); tambahItem(@js($medic->id_obat), @js($medic->nama), @js($medic->harga_jual), tampilJumlah({{ $medic->id_obat }})) ">+</button>
             </td>
         </tr>
         @endforeach

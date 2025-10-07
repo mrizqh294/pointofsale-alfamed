@@ -90,7 +90,6 @@
                                     $('#result').html(data.html).removeClass('hidden');
                                     if (window.Alpine) {
                                         Alpine.flushAndStopDeferringMutations?.();
-                                        Alpine.start();
                                     }
                                 }
                             });
@@ -114,9 +113,9 @@
                     @endforeach
                 ],
 
-                tambahItem(index, id, nama, harga, jumlah) {
+                tambahItem(id, nama, harga, jumlah) {
                     let item = this.items.find(i=> i.id_obat === id);
-                    let stok = this.medics[index].stok;
+                    let stok = this.medics.find(i=> i.id_obat === id).stok;
 
                     if(stok!=0){
                         if(item){
