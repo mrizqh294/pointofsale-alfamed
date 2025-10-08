@@ -5,7 +5,7 @@
         <div>
             <div class="flex justify-between py-3">
               <div>
-                <a href="{{ route('kasir.getSale') }}" class="cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                <a href="{{ url()->previous() }}" class="cursor-pointer border border-teal-600 bg-gray-100 hover:bg-gray-200 text-teal-600 px-3 py-2 rounded-lg"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
               </div>
             </div>
 
