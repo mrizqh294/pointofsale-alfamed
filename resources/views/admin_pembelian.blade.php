@@ -57,10 +57,6 @@
                  </form>
               </div>
             </div>
-
-            {{-- tabel result livesearch --}}
-            <div id="result" class="hidden"></div>
-
             
             {{-- tabel utama --}}
             <div id="main-table" class="block py-1"> 
@@ -97,51 +93,6 @@
                 {{ $purchases->links() }}
               </div>
             </div>
-
-            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-            <script>
-              $(document).ready(function() {
-                $('#search').on('keyup', function() {
-                  let query = $(this).val();
-                  if(query.length > 0){
-                    $.ajax({
-                      url: "{{ route('pembelian.findPurchase') }}",
-                      type: 'GET',
-                      data: { data: query, _token: '{{ csrf_token() }}' },
-                      success: function(data) {
-                        let html = '';
-                        let items = data.data;
-                        if(data.data.length > 0) {
-                          html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th><th class="py-2 px-4 border border-gray-400 w-1/7">Suplier</th><th class="py-2 px-4 border border-gray-400 w-1/7">Total Pembelian</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
-                          items.forEach(function(item){
-                            html += `<tr class="hover:bg-gray-50">
-                                      <td class="py-2 px-4 border border-gray-400">${item.nama_pengguna}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.nama_supplier}</td>
-                                      <td class="py-2 px-4 border border-gray-400">${item.total_pembelian}</td>
-                                      <td class="py-2 px-4 border border-gray-400">
-                                        <a href=""><button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
-                                        <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded mr-2" @click='isOpenDestroy = !isOpenDestroy; id = ${item.id_pembelian}'><i class="fa-solid fa-trash"></i></button>
-                                      </td>
-                                    </tr>`;
-                          });
-                          html += `</tbody></table>`
-                        } else {
-                          html += '<table class="min-w-full table-auto border border-gray-400">'
-                          html += '<thead class="text-left"><tr class="bg-gray-200"><th class="py-2 px-4 border border-gray-400 w-2/7">Pencatat</th><th class="py-2 px-4 border border-gray-400 w-1/7">Suplier</th><th class="py-2 px-4 border border-gray-400 w-1/7">Total Pembelian</th><th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th></tr></thead><tbody class="">'
-                          html += '<tbody><tr><td colspan="4" class="py-2 px-4 text-center">Data Tidak Ditemukan!</td></tr></tbody></table>'
-                        }
-                        $('#main-table').addClass('hidden');
-                        $('#result').html(html).removeClass('hidden');
-                      }
-                    });
-                  } else {
-                    $('#result').addClass('hidden');
-                    $('#main-table').removeClass('hidden');
-                  }
-                });
-              });
-            </script>
         </div>     
     </x-main_content>
 </x-layout>

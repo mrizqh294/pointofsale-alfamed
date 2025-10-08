@@ -10,7 +10,7 @@
             <button class="bg-blue-400 text-white rounded-lg p-3"><i class="fa-solid fa-hand-holding-dollar text-3xl"></i></button>
           </div>
           <div>
-            <h2 class="text-lg">Pendapatan Hari Ini</h2>
+            <h2 class="text-lg">Revenue Hari Ini</h2>
             <p class="text-gray-700 font-bold text-lg">{{ $todayRevenueFormatted }}</p>
           </div>
         </div>

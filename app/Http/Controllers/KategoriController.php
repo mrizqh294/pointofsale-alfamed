@@ -28,9 +28,15 @@ class KategoriController extends Controller
     {
 
         $validated = $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
+            'kode' => 'required|string',
+            'nama' => 'required|string',
         ]);
+
+        $kategori = Kategori::where('kode', $validated['kode'])->first();
+
+        if($kategori){
+            return back()->withErrors(['kode' => 'Kode Tersebut Sudah Digunakan!']);
+        }
 
         Kategori::create($validated);
         return redirect()->route('kategori.getCategory')->with('status', 'Data Berhasil Disimpan!');

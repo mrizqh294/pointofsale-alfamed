@@ -75,13 +75,19 @@ class DashboardController extends Controller
             ->whereYear('tgl_pembelian', Carbon::now()->year)
             ->sum('total_pembelian');
         
-        $todaySales = Penjualan::from('tb_penjualan')
+        $todaySalesQuery = Penjualan::from('tb_penjualan')
             ->join('tb_pengguna', 'tb_penjualan.id_pengguna', '=', 'tb_pengguna.id_pengguna')
             ->select(
                 'tb_penjualan.*',
                 'tb_pengguna.*',
                 'tb_pengguna.nama as nama_pengguna'
-            )->whereDate('tb_penjualan.created_at', Carbon::today())->get();
+            )->whereDate('tb_penjualan.created_at', Carbon::today());
+
+        $todaySales = $todaySalesQuery->get();
+        
+        $todayRevenue = $todaySalesQuery->sum('tb_penjualan.total_penjualan');
+
+        $todayRevenueFormatted = 'Rp ' . number_format($todayRevenue, 2, ',', '.');
 
         // penjualan vs pembelian chart
 
@@ -150,6 +156,6 @@ class DashboardController extends Controller
 
         $minimStockCount = $minimStocks->count();
 
-        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount', 'salesTrendChart', 'topProductChart','todaySales'), ['title'=>'Dashboard']);
+        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount', 'salesTrendChart', 'topProductChart','todaySales', 'todayRevenueFormatted'), ['title'=>'Dashboard']);
     }
 }

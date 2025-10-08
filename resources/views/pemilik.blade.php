@@ -59,6 +59,7 @@
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
           <div class="p-2">
             <h1 class="text-lg font-bold">Penjualan Hari Ini</h1>
+            <h1 class="mt-3 text-sm font-bold">Revenue Hari Ini : <span class="font-normal">{{ $todayRevenueFormatted }}</span></h1>
           </div>
           <div class="p-2 overflow-y-auto">
             <table class="min-w-full table-fixed border rounded-lg border-gray-200">
@@ -75,7 +76,7 @@
                   <td class="py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
                   <td class="py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
                   <td class="py-2 px-4 ">
-                    <a href="{{ route('penjualan.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                    <a href="{{ route('pemilik.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
                   </td>
                 </tr>
                 @empty

@@ -32,10 +32,10 @@ class PenggunaController extends Controller
     {
 
         $validated = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-            'nama' => 'required',
-            'role' => 'required'
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'nama' => 'required|string',
+            'role' => 'required|string'
         ]);
 
         $username = $validated['username'];
@@ -44,17 +44,16 @@ class PenggunaController extends Controller
         $pengguna = Pengguna::where('username', $username)->first();
 
         if($pengguna){
-            return redirect()->route('pengguna.getUser')->with('status', 'Username Sudah Terdaftar!');
+            return back()->withErrors(['username' => 'Username Sudah Terdaftar!']);
+        } else{
+            Pengguna::create([
+                'username' => $username,
+                'password' => Hash::make($password),
+                'nama' => $validated['nama'],
+                'role' => $validated['role']
+            ]);
+            return redirect()->route('pengguna.getUser')->with('status', 'Data Berhasil Disimpan!');
         }
-
-        Pengguna::create([
-            'username' => $username,
-            'password' => Hash::make($password),
-            'nama' => $validated['nama'],
-            'role' => $validated['role']
-        ]);
-
-        return redirect()->route('pengguna.getUser')->with('status', 'Data Berhasil Disimpan!');
     }
 
     public function updateUser(Request $request, $id)
