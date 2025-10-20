@@ -9,7 +9,7 @@
                         <input type="text" id="search" name="search" class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Obat">
                     </div>
                 </div>
-                <div class="h-130 bg-white my-4 rounded-lg shadow">
+                <div class="bg-white my-4 rounded-lg shadow">
                     <div class="border border-gray-300 rounded-lg overflow-hidden">
                         <div id="result" class="hidden overflow-y-auto max-h-130"></div>
                         <div id="main_table" class="overflow-y-auto max-h-130">
@@ -131,7 +131,7 @@
                 ubahStyle(id){
                     let stok = this.medics.find(i=> i.id_obat === id).stok;
                     let classes = "";
-                    if(stok === 0){
+                    if(stok <= 0){
                         classes += "w-9 text-center bg-gray-300 text-white py-2 rounded-lg";
                     } else {
                         classes += "w-9 text-center cursor-pointer bg-teal-600 hover:bg-teal-700 text-white py-2 rounded-lg";

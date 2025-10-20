@@ -46,24 +46,24 @@
         {{-- tabel penjualan hari ini --}}
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
           <div class="p-2">
-            <h1 class="text-lg font-bold">Penjualan Hari Ini</h1>
+            <h1 class="text-base font-bold">Penjualan Hari Ini</h1>
           </div>
           <div class="p-2 overflow-y-auto">
-            <table class="min-w-full table-fixed border rounded-lg border-gray-200">
-              <thead class="text-left">
+            <table class="text-sm min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead>
                 <tr class="bg-gray-200">
-                  <th class="py-2 px-4  w-2/8">Pencatat</th>
-                  <th class="py-2 px-4  w-2/8">Total Penjualan</th>
-                  <th class="py-2 px-4  w-1/10">Aksi</th>
+                  <th class="text-left py-2 px-4  w-2/8">Pencatat</th>
+                  <th class="text-right py-2 px-4  w-2/8">Total Penjualan</th>
+                  <th class="text-center py-2 px-4  w-1/10">Aksi</th>
                 </tr>
               </thead>
               <tbody class="">
                 @forelse ($todaySales as $todaySale)
                 <tr class="hover:bg-gray-50">
-                  <td class="py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
-                  <td class="py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
-                  <td class="py-2 px-4 ">
-                    <a href="{{ route('penjualan.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                  <td class="text-left py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
+                  <td class="text-right py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
+                  <td class="text-center py-2 px-4 ">
+                    <a href="{{ route('penjualan.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded"><i class="fa-solid fa-circle-info my-1"></i></button></a>
                   </td>
                 </tr>
                 @empty
@@ -79,24 +79,24 @@
         {{-- tabel obat stok tipis --}}
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
           <div class="p-2">
-            <h1 class="text-lg font-bold">Daftar Obat Stok Tipis</h1>
+            <h1 class="text-base font-bold">Daftar Obat Stok Tipis</h1>
           </div>
           <div class="p-2 overflow-y-auto">
-            <table class="min-w-full table-fixed border rounded-lg border-gray-200">
-              <thead class="text-left">
+            <table class="text-sm min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead>
                 <tr class="bg-gray-200 font-light">
-                  <th class="py-2 px-4  w-2/8">Nama</th>
-                  <th class="py-2 px-4  w-2/8">Stok</th>
-                  <th class="py-2 px-4  w-1/10">Aksi</th>
+                  <th class="text-left py-2 px-4  w-2/8">Nama</th>
+                  <th class="text-center py-2 px-4  w-2/8">Stok</th>
+                  <th class="text-center py-2 px-4  w-1/10">Aksi</th>
                 </tr>
               </thead>
               <tbody class="">
                 @forelse ($minimStocks as $minimStock)
                 <tr class="hover:bg-gray-50">
-                  <td class="py-2 px-4 ">{{ $minimStock->nama }}</td>
-                  <td class="py-2 px-4 ">{{ $minimStock->stok}}</td>
-                  <td class="py-2 px-4 ">
-                    <a href="{{ route('pembelian.getAddPurchase')}}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                  <td class="text-left py-2 px-4 ">{{ $minimStock->nama }}</td>
+                  <td class="text-center py-2 px-4 ">{{ $minimStock->stok}}</td>
+                  <td class="text-center py-2 px-4 ">
+                    <a href="{{ route('pembelian.getAddPurchase')}}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded"><i class="fa-solid fa-circle-info my-1"></i></button></a>
                   </td>
                 </tr>
                 @empty

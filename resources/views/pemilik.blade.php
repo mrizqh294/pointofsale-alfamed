@@ -42,41 +42,51 @@
         </div>
       </div>
       <div class ="py-6 grid grid-cols-2 gap-6">
-        {{-- tabel penjualan hari ini --}}
+
+        {{-- chart tren penjualan vs pembelian --}}
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col content-center">
+          <div class="ps-3 py-2">
+            <h1 class="text-base font-bold">Tren Penjualan vs Pembelian Bulanan</h1>
+            <h1 class="mt-2 text-xs">Total Pendapatn vs Total Pembelian Setiap Bulan</h1>
+          </div>
           <div>
             {!! $salesTrendChart->container() !!}
           </div>
         </div>
 
-        {{-- tabel obat stok tipis --}}
+        {{-- chart top 5 obat --}}
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col content-center">
+          <div class="ps-3 py-2">
+            <h1 class="text-base font-bold">Top 5 Obat Bulan Ini</h1>
+            <h1 class="mt-2 text-xs">Obat paling laku bulan ini</h1>
+          </div>
           <div>
             {!! $topProductChart->container() !!}
           </div>
         </div>
 
+        {{-- tabel penjualan hari ini --}}
         <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
           <div class="p-2">
-            <h1 class="text-lg font-bold">Penjualan Hari Ini</h1>
-            <h1 class="mt-3 text-sm font-bold">Revenue Hari Ini : <span class="font-normal">{{ $todayRevenueFormatted }}</span></h1>
+            <h1 class="text-base font-bold">Penjualan Hari Ini</h1>
+            {{-- <h1 class="mt-3 text-sm font-bold">Revenue Hari Ini : <span class="font-normal">{{ $todayRevenueFormatted }}</span></h1> --}}
           </div>
           <div class="p-2 overflow-y-auto">
-            <table class="min-w-full table-fixed border rounded-lg border-gray-200">
-              <thead class="text-left">
+            <table class="text-sm min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead>
                 <tr class="bg-gray-200">
-                  <th class="py-2 px-4  w-2/8">Pencatat</th>
-                  <th class="py-2 px-4  w-2/8">Total Penjualan</th>
-                  <th class="py-2 px-4  w-1/10">Aksi</th>
+                  <th class="text-left py-2 px-4  w-2/8">Pencatat</th>
+                  <th class="text-right py-2 px-4  w-2/8">Total Penjualan</th>
+                  <th class="text-center py-2 px-4  w-1/10">Aksi</th>
                 </tr>
               </thead>
-              <tbody class="">
+              <tbody>
                 @forelse ($todaySales as $todaySale)
                 <tr class="hover:bg-gray-50">
-                  <td class="py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
-                  <td class="py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
-                  <td class="py-2 px-4 ">
-                    <a href="{{ route('pemilik.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded mr-2"><i class="fa-solid fa-circle-info my-1"></i></button></a>
+                  <td class="text-left py-2 px-4 ">{{ $todaySale->nama_pengguna }}</td>
+                  <td class="text-right py-2 px-4 ">{{ $todaySale->total_penjualan_formatted}}</td>
+                  <td class="text-center py-2 px-4 ">
+                    <a href="{{ route('pemilik.getSaleDetail', $todaySale->id_penjualan) }}"><button class="border border-blue-500 cursor-pointer hover:bg-grey-200 text-blue-500 px-3 py-1 rounded"><i class="fa-solid fa-circle-info my-1"></i></button></a>
                   </td>
                 </tr>
                 @empty
@@ -88,6 +98,36 @@
             </table>
           </div>
         </div>
+
+        {{-- tabel stok obat minim --}}
+        <div class=" bg-white h-120 px-6 py-4 rounded-lg shadow flex flex-col">
+          <div class="p-2">
+            <h1 class="text-base font-bold">Daftar Obat Stok Tipis</h1>
+          </div>
+          <div class="p-2 overflow-y-auto">
+            <table class="text-sm min-w-full table-fixed border rounded-lg border-gray-200">
+              <thead>
+                <tr class="bg-gray-200 font-light">
+                  <th class="text-left py-2 px-4  w-6/8">Nama</th>
+                  <th class="text-center py-2 px-4  w-2/8">Stok</th>
+                </tr>
+              </thead>
+              <tbody>
+                @forelse ($minimStocks as $minimStock)
+                <tr class="hover:bg-gray-50">
+                  <td class="text-left py-2 px-4 ">{{ $minimStock->nama }}</td>
+                  <td class="text-center py-2 px-4 ">{{ $minimStock->stok}}</td>
+                </tr>
+                @empty
+                  <tr>
+                    <td colspan="3" class="text-center py-2 px-4 border border-gray-200">Semua Produk in Stok</td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
   </x-main_content>

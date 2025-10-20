@@ -3,7 +3,6 @@
     <x-main_content>
       <x-slot:title>{{ $title }}</x-slot>
         <div class="" x-data="{ isOpenAdd: false, isOpenDestroy: false, isOpenUpdate: false, id: null, current: {} }" x-cloak>
-
           @if (session('status'))
               <div x-data="{isOpenAlert: true}">
                 <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenAlert">

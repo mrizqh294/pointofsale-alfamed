@@ -54,6 +54,7 @@ class DashboardController extends Controller
             compact(['countMedic', 'countSupplier', 'todaySales','minimStocks', 'todayRevenueFormatted', 'totalStok', 'todayProfitFormatted', 'minimStockCount']),
             ['title' => 'Dashboard']);
     } 
+    
 
     public function showDashboardPemilik()
     {
@@ -113,11 +114,11 @@ class DashboardController extends Controller
         }
         
         $salesTrendChart = (new LarapexChart)->lineChart()
-            ->setTitle('Tren Penjualan vs Pembelian Bulanan')
-            ->setSubtitle('Total Pendapatan vs Total Pembelian Setiap Bulan')
+            // ->setTitle('Tren Penjualan vs Pembelian Bulanan')
+            // ->setSubtitle('Total Pendapatan vs Total Pembelian Setiap Bulan')
             ->addData('Penjualan', $dataPenjualan)
             ->addData('Pembelian', $dataPembelian)
-            ->setHeight(440)
+            ->setHeight(370)
             ->setXAxis($dataBulan);
         
         // top 5 product chart
@@ -138,10 +139,10 @@ class DashboardController extends Controller
         }
 
         $topProductChart = (new LarapexChart)->barChart()
-            ->setTitle('Top 5 Obat')
-            ->setSubtitle('Top 5 Obat Paling Laris Bulan Ini')
+            // ->setTitle('Top 5 Obat')
+            // ->setSubtitle('Top 5 Obat Paling Laris Bulan Ini')
             ->addData('Jumlah Penjualan', $salePerProduct)
-            ->setHeight(440)
+            ->setHeight(380)
             ->setXAxis($nameSaleProduct);
                     
         
@@ -156,6 +157,6 @@ class DashboardController extends Controller
 
         $minimStockCount = $minimStocks->count();
 
-        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount', 'salesTrendChart', 'topProductChart','todaySales', 'todayRevenueFormatted'), ['title'=>'Dashboard']);
+        return view('pemilik', compact('monthlyRevenue', 'monthlyProfit', 'monthlyCost', 'minimStockCount','minimStocks', 'salesTrendChart', 'topProductChart','todaySales', 'todayRevenueFormatted'), ['title'=>'Dashboard']);
     }
 }
