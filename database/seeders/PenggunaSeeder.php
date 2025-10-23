@@ -15,8 +15,8 @@ class PenggunaSeeder extends Seeder
     {
         $penggunas = [
             ['username'=> 'admin01', 'nama' => 'Syakira Jasmine', 'role' =>'Admin'],
-            ['username'=> 'pegawai01','nama' => 'Meisya Aziani', 'role' =>'Kasir'],
-            ['username'=> 'pemilik', 'nama' => 'Aji Santoso', 'role' =>'Pemilik']
+            ['username'=> 'kasir01','nama' => 'Meisya Aziani', 'role' =>'Kasir'],
+            ['username'=> 'pemilik01', 'nama' => 'Aji Santoso', 'role' =>'Pemilik']
         ];
 
         $password = '12345678';

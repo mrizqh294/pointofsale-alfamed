@@ -20,7 +20,7 @@
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Kategori</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Beli</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Beli Terakhir</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th>
                   </tr>
                 </thead>

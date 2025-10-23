@@ -9,7 +9,6 @@ use App\Models\Penjualan;
 use App\Models\Supplier;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -114,8 +113,6 @@ class DashboardController extends Controller
         }
         
         $salesTrendChart = (new LarapexChart)->lineChart()
-            // ->setTitle('Tren Penjualan vs Pembelian Bulanan')
-            // ->setSubtitle('Total Pendapatan vs Total Pembelian Setiap Bulan')
             ->addData('Penjualan', $dataPenjualan)
             ->addData('Pembelian', $dataPembelian)
             ->setHeight(370)
@@ -139,14 +136,10 @@ class DashboardController extends Controller
         }
 
         $topProductChart = (new LarapexChart)->barChart()
-            // ->setTitle('Top 5 Obat')
-            // ->setSubtitle('Top 5 Obat Paling Laris Bulan Ini')
             ->addData('Jumlah Penjualan', $salePerProduct)
             ->setHeight(380)
             ->setXAxis($nameSaleProduct);
                     
-        
-
         $monthlyRevenue = 'Rp ' . number_format($monthlyRevenueQuery, 2, ',', '.');
 
         $monthlyProfit = 'Rp ' . number_format($monthlyProfitQuery, 2, ',', '.');

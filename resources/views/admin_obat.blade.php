@@ -126,9 +126,10 @@
                   <tr class="bg-gray-200">
                     <th class="py-2 px-4 border border-gray-400 w-2/7">Nama</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/7">Kategori</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th>
                     <th class="py-2 px-4 border border-gray-400 w-1/15">Stok</th>
-                    <th class="py-2 px-4 border border-gray-400 w-1/7">Aksi</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Beli Terakhir</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/7">Harga Jual</th>
+                    <th class="py-2 px-4 border border-gray-400 w-1/10">Aksi</th>
                   </tr>
                 </thead>
                 <tbody class="">
@@ -136,8 +137,9 @@
                   <tr class="hover:bg-gray-50">
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_obat }}</td>
                     <td class="py-2 px-4 border border-gray-400">{{ $medic->nama_kategori }}</td>
-                    <td class="text-right py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
                     <td class="text-center py-2 px-4 border border-gray-400">{{ $medic->stok }}</td>
+                    <td class="text-right py-2 px-4 border border-gray-400">{{ $medic->harga_beli_formatted }}</td>
+                    <td class="text-right py-2 px-4 border border-gray-400">{{ $medic->harga_jual_formatted }}</td>
                     <td class="text-center py-2 px-4 border border-gray-400">
                       <button class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-3 py-1 rounded"  @click="isOpenUpdate = !isOpenUpdate; current = {{ $medic->toJson() }}"><i class="fa-solid fa-pen-to-square"></i></button>
                       <button class="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-1 rounded" @click="isOpenDestroy = !isOpenDestroy; id = {{ $medic->id_obat }}"><i class="fa-solid fa-trash"></i></button>
