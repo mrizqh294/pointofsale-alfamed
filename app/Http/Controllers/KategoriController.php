@@ -35,7 +35,7 @@ class KategoriController extends Controller
         $kategori = Kategori::where('kode', $validated['kode'])->first();
 
         if($kategori){
-            return back()->withErrors(['kode' => 'Kode Tersebut Sudah Digunakan!']);
+            return back()->withErrors(['kode' => 'Kode Tersebut Sudah Terdaftar!']);
         }
 
         Kategori::create($validated);
@@ -45,11 +45,19 @@ class KategoriController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $validated = $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
+            'kode' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         $kategori = Kategori::where('id_kategori', $id)->first();
+        $codeCheck = Kategori::where('kode', $validated['kode'])->first();
+
+        if($codeCheck){
+            if($codeCheck->kode != $kategori->kode){
+                return back()->withErrors(['kode' => 'Kode Tersebut Sudah Terdaftar!']);
+            }
+        };
+
         $kategori->kode = $validated['kode'];
         $kategori->nama = $validated['nama'];
         $kategori->save();

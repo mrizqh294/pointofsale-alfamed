@@ -59,7 +59,7 @@ class PenggunaController extends Controller
     public function updateUser(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|string',
         ]);
 
         $pengguna = Pengguna::where('id_pengguna', $id)->first();
