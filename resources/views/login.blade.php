@@ -7,7 +7,8 @@
                       {{ session('status') }}
                     </h1>
                     <img src="/images/cancel.svg" class="p-5">
-                    <button type="button" class="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
+                    <p>{{ session('pesan'); }}</p>
+                    <button type="button" class="mt-5 cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg" @click="isOpenAlert = !isOpenAlert">Oke</button>
                   </div>
             </div>
         </div>
@@ -43,7 +44,7 @@
                             <option value="Pemilik">Pemilik</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full p-3 text-white bg-teal-600 rounded-lg hover:bg-teal-700 focus:outline-none">Login</button>
+                    <button type="submit" class="w-full p-3 text-white bg-teal-600 rounded-lg cursor-pointer hover:bg-teal-700 focus:outline-none">Login</button>
                 </form>
             </div>   
         </div>

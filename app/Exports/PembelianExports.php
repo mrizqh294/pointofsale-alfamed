@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting, WithCustomStartCell, WithEvents, ShouldAutoSize, WithStyles, WithMapping
 {
@@ -93,7 +94,7 @@ class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting,
 
     public function startCell(): string
     {
-        return 'A3';
+        return 'A5';
     }
 
     public function registerEvents(): array
@@ -106,7 +107,7 @@ class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 {
                     $startDate = Carbon::parse($this->filters['start_date'])->format('d-m-y');
                     $endDate = Carbon::parse($this->filters['end_date'])->format('d-m-y');
-                    $title = "Laporan Pembelian Periode {$startDate} sd {$endDate}";
+                    $periode = "Periode {$startDate} sd {$endDate}";
                     $dataCount = DetailPembelian::from('tb_detail_pembelian')
                         ->join('tb_pembelian', 'tb_detail_pembelian.id_pembelian', '=', 'tb_pembelian.id_pembelian')
                         ->whereBetween('tb_pembelian.tgl_pembelian', [$this->filters['start_date'], $this->filters['end_date']])->count();
@@ -115,7 +116,7 @@ class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 } else if (!empty($this->filters['start_date'])){
 
                     $startDate = Carbon::parse($this->filters['start_date'])->format('d-m-y');
-                    $title = "Laporan Pembelian Mulai Tanggal {$startDate}";
+                    $periode = "Mulai Tanggal {$startDate}";
                     $dataCount = DetailPembelian::from('tb_detail_pembelian')
                         ->join('tb_pembelian', 'tb_detail_pembelian.id_pembelian', '=', 'tb_pembelian.id_pembelian')
                         ->whereDate('tb_pembelian.tgl_pembelian','>=', $this->filters['start_date'])->count();
@@ -124,36 +125,44 @@ class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 } else if (!empty($this->filters['end_date'])){
 
                     $endDate = Carbon::parse($this->filters['end_date'])->format('d-m-y');
-                    $title = "Laporan Pembelian Sebelum Tanggal {$endDate}";
+                    $periode = "Sebelum Tanggal {$endDate}";
                     $dataCount = DetailPembelian::from('tb_detail_pembelian')
                         ->join('tb_pembelian', 'tb_detail_pembelian.id_pembelian', '=', 'tb_pembelian.id_pembelian')
                         ->whereDate('tb_pembelian.tgl_pembelian','<=', $this->filters['end_date'])->count();
                     $this->totalPembelian = Pembelian::whereDate('tgl_pembelian', '<=', $this->filters['end_date']) ->sum('total_pembelian');
                         
                 } else {
-                    $title = "Laporan Pembelian Keseluruhan";
+                    $periode = "Keseluruhan";
                     $dataCount = DetailPembelian::from('tb_detail_pembelian')
                         ->join('tb_pembelian', 'tb_detail_pembelian.id_pembelian', '=', 'tb_pembelian.id_pembelian')
                         ->count();
                     $this->totalPembelian = Pembelian::sum('total_pembelian');
                 }
 
-                //Judul di atas tabel
+                //Judul
+                $company = "Apotek Alfamed";
+                $title = "Laporan Pembelian";
                 $sheet->mergeCells('A1:F1');
-                $sheet->setCellValue('A1', $title);
+                $sheet->mergeCells('A2:F2');
+                $sheet->mergeCells('A3:F3');
+                $sheet->setCellValue('A1', $company);
+                $sheet->setCellValue('A2', $title);
+                $sheet->setCellValue('A3', $periode);
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
-                $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+                $sheet->getStyle('A2:A3')->getFont()->setBold(true);
+                $sheet->getStyle('A1:F5')->getAlignment()->setHorizontal('center');
+                $sheet->getStyle('A5:F5')->getFill()->setFillType(FILL::FILL_SOLID)->getStartColor()->setARGB('6AFFC2');
 
 
-                $rowTotal = $dataCount + 4;
+                $rowTotal = $dataCount + 6;
 
-                // Tambah total di bawah tabel
+                //total
                 $sheet->setCellValue("E{$rowTotal}", 'Total Pembelian:');
                 $sheet->setCellValue("F{$rowTotal}", $this->totalPembelian);
                 $sheet->getStyle("E{$rowTotal}:E{$rowTotal}")->getFont()->setBold(true);
 
-                // Tambahkan border pada tabel (kecuali judul)
-                $range = "A3:F" . ($rowTotal-1);
+                //border pada tabel
+                $range = "A5:F" . ($rowTotal-1);
                 $sheet->getStyle($range)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -176,7 +185,7 @@ class PembelianExports implements FromQuery, WithHeadings, WithColumnFormatting,
     public function styles(Worksheet $sheet)
     {
         return [
-            3 => ['font' => ['bold' => true]]
+            5 => ['font' => ['bold' => true]]
         ];
     }
 }

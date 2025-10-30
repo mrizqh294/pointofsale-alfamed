@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill as StyleFill;
 
 class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting, WithCustomStartCell, WithEvents, ShouldAutoSize, WithStyles, WithMapping
 {
@@ -88,7 +89,7 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
 
     public function startCell(): string
     {
-        return 'A3';
+        return 'A5';
     }
 
     public function registerEvents(): array
@@ -102,7 +103,7 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
 
                     $startDate = Carbon::parse($this->filters['start_date'])->format('d-m-y');
                     $endDate = Carbon::parse($this->filters['end_date'])->format('d-m-y');
-                    $title = "Laporan Penjualan Periode {$startDate} sd {$endDate}";
+                    $periode = "Periode {$startDate} sd {$endDate}";
                     $dataCount = DetailPenjualan::from('tb_detail_penjualan')
                         ->join('tb_penjualan', 'tb_detail_penjualan.id_penjualan', '=', 'tb_penjualan.id_penjualan')
                         ->whereBetween('tb_penjualan.tgl_penjualan', [$this->filters['start_date'], $this->filters['end_date']])->count();
@@ -111,7 +112,7 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 } else if (!empty($this->filters['start_date'])){
 
                     $startDate = Carbon::parse($this->filters['start_date'])->format('d-m-y');
-                    $title = "Laporan Penjualan Mulai Tanggal {$startDate}";
+                    $periode = "Mulai Tanggal {$startDate}";
                     $dataCount = DetailPenjualan::from('tb_detail_penjualan')
                         ->join('tb_penjualan', 'tb_detail_penjualan.id_penjualan', '=', 'tb_penjualan.id_penjualan')
                         ->whereDate('tb_penjualan.tgl_penjualan','>=', $this->filters['start_date'])->count();
@@ -120,14 +121,14 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 } else if (!empty($this->filters['end_date'])){
                     
                     $endDate = Carbon::parse($this->filters['end_date'])->format('d-m-y');
-                    $title = "Laporan Penjualan Sebelum Tanggal {$endDate}";
+                    $periode = "Sebelum Tanggal {$endDate}";
                     $dataCount = DetailPenjualan::from('tb_detail_penjualan')
                         ->join('tb_penjualan', 'tb_detail_penjualan.id_penjualan', '=', 'tb_penjualan.id_penjualan')
                         ->whereDate('tb_penjualan.tgl_penjualan','<=', $this->filters['end_date'])->count();
                     $this->totalPenjualan = Penjualan::whereDate('tgl_penjualan', '<=', $this->filters['end_date'])->sum('total_penjualan');
                         
                 } else {
-                    $title = "Laporan Penjualan Keseluruhan";
+                    $periode = "Keseluruhan";
                     $dataCount = DetailPenjualan::from('tb_detail_penjualan')
                         ->join('tb_penjualan', 'tb_detail_penjualan.id_penjualan', '=', 'tb_penjualan.id_penjualan')
                         ->count();
@@ -135,22 +136,30 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
                 }
 
 
-                //Judul di atas tabel
+                //Judul
+                $company = "Apotek Alfamed";
+                $title = "Laporan Penjualan";
                 $sheet->mergeCells('A1:E1');
-                $sheet->setCellValue('A1', $title);
+                $sheet->mergeCells('A2:E2');
+                $sheet->mergeCells('A3:E3');
+                $sheet->setCellValue('A1', $company);
+                $sheet->setCellValue('A2', $title);
+                $sheet->setCellValue('A3', $periode);
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
-                $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+                $sheet->getStyle('A2:A3')->getFont()->setBold(true);
+                $sheet->getStyle('A1:E5')->getAlignment()->setHorizontal('center');
+                $sheet->getStyle('A5:E5')->getFill()->setFillType(StyleFill::FILL_SOLID)->getStartColor()->setARGB('6AFFC2');
+                
 
+                $rowTotal = $dataCount + 6;
 
-                $rowTotal = $dataCount + 4;
-
-                // Tambah total di bawah tabel
+                //total
                 $sheet->setCellValue("D{$rowTotal}", 'Total Penjualan:');
                 $sheet->setCellValue("E{$rowTotal}", $this->totalPenjualan);
                 $sheet->getStyle("D{$rowTotal}:D{$rowTotal}")->getFont()->setBold(true);
 
-                // Tambahkan border pada tabel (kecuali judul)
-                $range = "A3:E" . ($rowTotal-1);
+                // border pada tabel
+                $range = "A5:E" . ($rowTotal-1);
                 $sheet->getStyle($range)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -173,7 +182,7 @@ class PenjualanExports implements FromQuery, WithHeadings, WithColumnFormatting,
     public function styles(Worksheet $sheet)
     {
         return [
-            3 => ['font' => ['bold' => true]]
+            5 => ['font' => ['bold' => true]]
         ];
     }
 }

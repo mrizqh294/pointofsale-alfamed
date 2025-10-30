@@ -9,7 +9,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
@@ -37,10 +36,9 @@ class AuthController extends Controller
             if($credentials['role'] == 'Pemilik'){
                 return redirect('/pemilik');
             }
-  
         }
  
-        return back()->with(['status'=>'Login Gagal', 'pesan'=>'Periksa kombinasi username dan password anda!']);
+        return back()->with(['status'=>'Login Gagal!', 'pesan'=>'Periksa kombinasi username dan password anda!']);
     }
 
     public function logout(Request $request)
