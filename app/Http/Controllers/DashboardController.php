@@ -129,6 +129,9 @@ class DashboardController extends Controller
             ->orderBy('jumlah','DESC')
             ->limit(5)
             ->get();
+
+        $salePerProduct = [];
+        $nameSaleProduct = [];
         
         foreach ($topProducts as $topProduct){
             $salePerProduct[] = $topProduct->jumlah;

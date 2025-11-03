@@ -6,6 +6,8 @@ use App\Exports\ObatExports;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Obat;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ObatController extends Controller
@@ -109,5 +111,20 @@ class ObatController extends Controller
         $fileName = 'Stok_Obat_' . now()->format('Ymd_His') . '.xlsx';
 
         return Excel::download(new ObatExports, $fileName);
+    }
+
+    public function expiredMedicine() {
+        $today = Carbon::today();
+        $kadaluarsa = Obat::from('tb_obat')
+        ->join('tb_detail_pembelian', 'tb_obat.id_obat', '=', 'tb_detail_pembelian.id_obat')
+        ->select(
+            'tb_obat.id_obat',
+            'tb_obat.nama',
+            'tb_obat.stok',
+                DB::raw('COUNT(tb_detail_pembelian.id_obat) as stok_kadaluarsa')
+            )
+        ->where('tb_detail_pembelian.tgl_kadaluarsa', '>=', $today->copy()->addDays(30))
+        ->groupBy('tb_obat.id_obat', 'tb_obat.nama', 'tb_obat.stok')
+        ->get();
     }
 }

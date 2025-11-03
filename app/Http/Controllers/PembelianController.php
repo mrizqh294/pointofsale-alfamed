@@ -8,6 +8,7 @@ use App\Models\Pembelian;
 use App\Models\DetailPembelian;
 use App\Models\Obat;
 use App\Models\Supplier;
+use Egulias\EmailValidator\Result\Reason\DetailedReason;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PembelianController extends Controller
@@ -137,6 +138,13 @@ class PembelianController extends Controller
 
     public function destroyPurchase($id)
     {
+        
+        $details = DetailPembelian::where('id_pembelian', $id)->get() ;
+        
+        foreach($details as $detail){
+            Obat::where('id_obat', $detail->id_obat)->decrement('stok', $detail->jumlah_obat);
+        }
+
         Pembelian::where('id_pembelian', $id)->delete();
     
         return redirect()->route('pembelian.getPurchase')->with('status', 'Data Berhasil Dihapus!');

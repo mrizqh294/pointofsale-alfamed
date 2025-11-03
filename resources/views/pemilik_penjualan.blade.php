@@ -43,9 +43,10 @@
 
             {{-- delete modal --}}
             <div class="fixed top-0 left-0 w-full h-screen bg-black/40 flex justify-center items-center" x-show="isOpenDestroy">
-                <div class="p-8 bg-white w-1/3 rounded-xl">
+                <div class="p-8 bg-white w-1/3 rounded-xl place-items-center">
                     <h1 class="font-bold mb-4 text-lg">Apakah Anda Yakin Ingin Menghapus Data Ini?</h1>
-                    <p class="my-4">Data yang sudah dihapus tidak dapat dikembalikan.</p>
+                    <p class="text-center py-2"><i class="fa-solid fa-circle-exclamation text-7xl text-red-500"></i></p>
+                    <p class="my-4 text-center">Lakukan tindakan ini hanya ketika diperlukan. Menghapus data penjualan dapat menyebakan perubahan data stok obat.</p>
                     <form :action="`{{ route('pemilik.destroySale', ':id') }}`.replace(':id', id)" method="POST">
                     @csrf
                     @method('DELETE')

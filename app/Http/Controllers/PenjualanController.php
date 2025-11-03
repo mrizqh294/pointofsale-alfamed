@@ -141,9 +141,14 @@ class PenjualanController extends Controller
         }
     }
 
-
     public function destroySale($id)
     {
+        $details = DetailPenjualan::where('id_penjualan', $id)->get() ;
+        
+        foreach($details as $detail){
+            Obat::where('id_obat', $detail->id_obat)->increment('stok', $detail->jumlah_obat);
+        }
+
         Penjualan::where('id_penjualan', $id)->delete();
 
         return redirect()->route('pemilik.getSale')->with('status', 'Data Berhasil Dihapus!');

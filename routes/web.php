@@ -10,13 +10,22 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {return view('login');});
-Route::get('/login', function () {return view('login');});
-Route::post('/login',[AuthController::class, 'login'])->name('login');
+
+
+Route::middleware('checkLogin')->group(function(){
+    Route::get('/', function () {return view('login');});
+    Route::get('/login', function () {return view('login');});
+    Route::post('/login',[AuthController::class, 'login'])->name('login');
+});
+
+// Route::get('/', function () {return view('login');});
+//     Route::get('/login', function () {return view('login');});
+//     Route::post('/login',[AuthController::class, 'login'])->name('login');
+
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'checkRole:Kasir'])->group(function(){
-    Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);});
+    Route::get('/kasir', function () {return view('kasir', ['title' => 'Dashboard']);})->name('kasir.transaksi');
     Route::get('/kasir/transaksi', [ObatController::class, 'getCashierMedicine'])->name('kasir.transaksi');
     Route::get('/kasir/obat/cari', [ObatController::class, 'findMedicine'])->name('kasir.findMedicine');
     Route::get('/kasir/transaksi/riwayat', [PenjualanController::class, 'getSale'])->name('kasir.getSale');
