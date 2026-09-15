@@ -18,9 +18,6 @@ Route::middleware('checkLogin')->group(function(){
     Route::post('/login',[AuthController::class, 'login'])->name('login');
 });
 
-// Route::get('/', function () {return view('login');});
-//     Route::get('/login', function () {return view('login');});
-//     Route::post('/login',[AuthController::class, 'login'])->name('login');
 
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
